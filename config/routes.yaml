@@ -1,0 +1,5 @@
+# config/routes.yaml
+
+home:
+    path: /
+    controller: app\Controller\TrickController::index
