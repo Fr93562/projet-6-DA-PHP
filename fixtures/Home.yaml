@@ -1,0 +1,6 @@
+# fixtures/Home.yaml
+
+App\Entity\Home:
+   Trick_{1}:
+        contenu: <text()>
+

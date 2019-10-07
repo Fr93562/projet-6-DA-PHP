@@ -21,16 +21,32 @@ class User
     /**
      * @ORM\Column(type="string", length=255)
      */
-    private $pseudo;
+    private $username;
 
     /**
      * @ORM\Column(type="string", length=255)
      */
     private $mail;
 
+	/**
+     * @ORM\Column(type="string", length=255)
+     */
+    private $password;
+	
+	/**
+   	* @ORM\Column(name="salt", type="string", length=255)
+   	*/
+  	private $salt;
+
+  	/**
+   	* @ORM\Column(name="roles", type="string", length=100)
+   	*/
+  	private $roles;
+	
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Pseudo", orphanRemoval=true)
      */
+
     private $comments;
 
     public function __construct()
@@ -43,14 +59,14 @@ class User
         return $this->id;
     }
 
-    public function getPseudo(): ?string
+    public function getUsername(): ?string
     {
-        return $this->pseudo;
+        return $this-username;
     }
 
-    public function setPseudo(string $pseudo): self
+    public function setUsername(string $username): self
     {
-        $this->pseudo = $pseudo;
+        $this->username = $username;
 
         return $this;
     }
@@ -63,6 +79,42 @@ class User
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+	
+	public function getPassword(): ?string
+    {
+        return $this->$password;
+    }
+
+    public function setPassword(string $password): self
+    {
+        $this->password = $password;
+
+        return $this;
+    }
+	
+	public function getSalt(): ?string
+    {
+        return $this->salt;
+    }
+
+    public function setSalt(string $salt): self
+    {
+        $this->salt = $salt;
+
+        return $this;
+    }
+	
+	public function getRoles(): ?string
+    {
+        return $this->roles;
+    }
+
+    public function setRoles(string $roles): self
+    {
+        $this->roles = $roles;
 
         return $this;
     }

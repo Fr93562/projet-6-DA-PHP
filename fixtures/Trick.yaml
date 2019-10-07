@@ -1,0 +1,10 @@
+# fixtures/Trick.yaml
+
+App\Entity\Trick:
+   Trick_{1..10}:
+        titre: <word()>
+        lienVideo: <domainName()>
+        lienImage: <domainName()>
+        texte: <text()>
+        dateCreation: <dateTime()>
+        dateMiseAJour: <dateTime()>

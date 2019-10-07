@@ -20,7 +20,7 @@ class Comment
      * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
      * @ORM\JoinColumn(nullable=false)
      */
-    private $Pseudo;
+    private $username;
 
     /**
      * @ORM\Column(type="text")
@@ -32,14 +32,15 @@ class Comment
         return $this->id;
     }
 
-    public function getPseudo(): ?User
+    public function getUsername(): ?User
     {
-        return $this->Pseudo;
+        return $this->username;
     }
 
-    public function setPseudo(?User $Pseudo): self
+	// ?User $username à remettre sur SetUsername 
+    public function setUsername(?User $username): self
     {
-        $this->Pseudo = $Pseudo;
+        $this->username = $username;
 
         return $this;
     }

@@ -6,13 +6,37 @@
     .example-wrapper code { background: #F5F5F5; padding: 2px 6px; }
 </style>
 
-<div class="example-wrapper">
-    <h1> Bienvenue </h1>
+<section>
+    <div id="entete">
+        <div id="enteteLien">
+            <div id="blocLien">
+                <p> La référence française du snowboard!</p>
+            </div>
+        </div>
+    </div>  
+</section>
 
-    This friendly message is coming from:
-    <ul>
-        <li>Your controller at <code><a href="{{ 'C:/Users/ekoes/projet 6/projet6/src/Controller/TrickController.php'|file_link(0) }}">src/Controller/TrickController.php</a></code></li>
-        <li>Your template at <code><a href="{{ 'C:/Users/ekoes/projet 6/projet6/templates/trick/index.html.twig'|file_link(0) }}">templates/trick/index.html.twig</a></code></li>
-    </ul>
-</div>
+<!-- Boucle à mettre en place ici -->
+
+<section>
+	<div id="containerArticle">
+        <div class="contenairDiv">
+            <div class="imageContenairPost">
+				<p> Position de la future image </p>
+			</div>
+
+			<article class="contenairPost">
+                <h4 class="titre">Exemple de titre</h4>
+				<p class="contenu"> Div qui sera duppliqué </p>
+                <p class="contenu"> Exemple de contenu </p>
+                <p class="auteur"> Exemple d'auteur </p>
+                <p class="lien"><a class="customLien" href='#'>Lire la suite</a></p>
+            </article>        
+        </div>
+    </div>
+</section>
+
+<!-- Fin de boucle à mettre en place ici -->
+
+
 {% endblock %}

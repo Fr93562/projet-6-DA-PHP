@@ -3,11 +3,41 @@
     <head>
         <meta charset="UTF-8">
         <title> Site communautaire de Snowtrick </title>
+		
 		<link rel="stylesheet" href="/assets/css/style.css"/>
-		{% block stylesheets %}{% endblock %}
+		<script src="https://kit.fontawesome.com/ced1fd024a.js" crossorigin="anonymous"></script>
+		
+		<meta name="viewport" content="width=device-width, initial-scale=1">
     </head>
     <body>
+		
+		
+		<header>
+			<div id="navTitre">
+				<i class="fas fa-snowboarding fa-2x"></i>
+				<h1> Site communautaire de Snowtrick </h1>
+			</div>
+    		<div id="navBloc">
+        		<nav>
+					<ul>
+                    	<li> <a href="/"> Acceuil </a> </li>
+                    	<li> <a href="#containerArticle"> Tricks </a></li>
+                    	<li> <a href="/account"> Accéder à son compte </a></li>
+                	</ul>
+				</nav>    
+    		</div>    
+		</header>
+		
         {% block body %}{% endblock %}
         {% block javascripts %}{% endblock %}
+		
+		<footer>
+        	<div>
+				<a href="https://www.facebook.com/"> <i class="fab fa-facebook-f fa-2x"></i> </a>
+				<a href="https://www.linkedin.com"> <i class="fab fa-linkedin-in fa-2x"></i> </a>
+				<a href="https://www.youtube.com/?gl=FR&hl=fr"> <i class="fab fa-youtube fa-2x"></i> </a>
+        	</div>
+		</footer>  
+		
     </body>
 </html>
