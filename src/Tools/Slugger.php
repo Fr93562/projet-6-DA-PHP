@@ -2,7 +2,7 @@
 
 // src/AppBundle/Tools/Slugger.php
 
-
+/*
 namespace AppBundle\Tools;
 
 class Slug
@@ -16,3 +16,4 @@ class Slug
 }
 
 
+*/

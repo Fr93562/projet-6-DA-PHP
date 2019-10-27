@@ -3,3 +3,19 @@
 home:
     path: /
     controller: app\Controller\TrickController::index
+
+trick_show:
+    path: /view/{titre}
+    controller: App\Controller\TrickController::show
+
+trick_showUser:
+    path: /viewUser/{titre}
+    controller: App\Controller\TrickController::showUser
+
+trick_showUserUpdate:
+    path: /viewupdate/{titre}
+    controller: App\Controller\TrickController::showUserUpdate
+
+trick_showUserDelete:
+    path: /delete/{titre}
+    controller: App\Controller\TrickController::showUserDelete

@@ -9,6 +9,10 @@
   <div id="containerShow">
     <div class="contenairDivShow">
       <div>
+          <div class="customDivIcon">
+              <a class="customIcon" href='/viewupdate/{{ advert.titre}} '><i class="fas fa-pen"></i></a>
+              <a class="customIcon" href='/view/{{ advert.titre}} '><i class="fas fa-trash-alt"></i></a>
+          </div>
         <h4 class="titreShow">{{ advert.titre }}</h4>
         <p class="texteShow">{{ advert.texte[1:40] }}</p>
         <p class="dateShow"> {{ advert.dateCreation|date("m/d/Y")}}

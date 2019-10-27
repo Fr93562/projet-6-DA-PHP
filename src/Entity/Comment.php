@@ -37,7 +37,6 @@ class Comment
         return $this->username;
     }
 
-	// ?User $username à remettre sur SetUsername 
     public function setUsername(?User $username): self
     {
         $this->username = $username;

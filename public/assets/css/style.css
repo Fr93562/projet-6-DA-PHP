@@ -7,7 +7,7 @@
 
 body
 {
-	margin: 0px; 
+	margin: 0px;
 }
 
 /* Header */
@@ -17,7 +17,7 @@ header
     width: 100%;
     height: 70px;
     background-color: rgba(0,0,0,0.8);
-    
+
     display: flex;
     justify-content: space-around;
     flex-direction: row;
@@ -34,7 +34,7 @@ header
 #navTitre
 {
     width: auto;
-	
+
 	display: flex;
 	justify-content: space-between;
 	flex-direction: row;
@@ -45,7 +45,7 @@ header
     width: 600px;
 }
 
-nav ul 
+nav ul
 {
     display: flex;
     justify-content: space-around;
@@ -70,7 +70,7 @@ h1, li a
     list-style: none;
     text-decoration: none;
 }
-li a:hover 
+li a:hover
 {
     color:cornflowerblue;
     transition-duration: 250ms;
@@ -83,7 +83,7 @@ li a:hover
     background-image: url('ressources/home.jpg');
     width:100%;
     height: 730px;
-	
+
 	display: flex;
 	justify-content: space-around;
 }
@@ -91,10 +91,10 @@ li a:hover
 {
     width: 400px;
     height: 150px;
-    
+
     position: relative;
     top: 42%;
-	
+
 }
 #blocLien
 {
@@ -103,19 +103,19 @@ li a:hover
 #blocLien p
 {
 	text-align: center;
-	
+
 	background-color: rgba(0,0,0,0.8);
 	color: white;
 	padding: 20px 0px 20px 0px;
 	border-radius: 8px;
 }
-/*  Trick Show  */ 
+/*  Trick Show  */
 #enteteShow
 {
     background-image: url('ressources/defaultshow.jpg');
     width:100%;
     height: 730px;
-	
+
 	display: flex;
 	justify-content: space-around;
 	margin-top: 100px;
@@ -139,7 +139,7 @@ li a:hover
     background-image: url('ressources/code.png');
     height: 152px;
     width: 152px;
-    
+
     position: relative;
     left: 35%;
 }
@@ -158,11 +158,15 @@ li a:hover
 #containerArticle
 {
     background-color: rgb(247, 248, 249);
+
     width: 100%;
     height: auto;
+
     display: flex;
     justify-content: space-around;
     flex-direction: row;
+	flex-wrap: wrap;
+
     margin-top: 20px;
     margin-bottom: 20px;
 }
@@ -170,23 +174,23 @@ li a:hover
 {
 	width: 400px;
 	height: 400px;
-	
+
     display: flex;
     flex-direction: column;
-	
-	border: solid black 1px; /* A retirer */ 
-	
+
+	border: solid black 1px; /* A retirer */
+
 	margin-top: 15px;
 	margin-bottom: 15px;
 }
 
 
-.imageContenairPost 
+.imageContenairPost
 {
-   background-image: url('ressources/default.jpg');
-   background-image: cover;
+   background-image: url('ressources/defaultshow.jpg');
+   background-size: cover;
    height: 300px;
-   width: 30%;
+   width: 100%;
 }
 
 .contenairPost
@@ -194,10 +198,10 @@ li a:hover
     margin: 0px 15px 15px 15px;
     transition-property: background-color;
     transition-duration: 1s;
-    
+
     height: 250px;
     width: 100%;
-    
+
     display: flex;
     justify-content: space-around;
     flex-direction: column;
@@ -246,22 +250,106 @@ textarea
     text-align: left;
 }
 
+/* Trick Show */
+#enteteShowTrick
+{
+    background-image: url('ressources/defaultshow.jpg');
+    width:100%;
+    height: 730px;
+
+	display: flex;
+	justify-content: space-around;
+}
+
+#show
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+
+  margin-top: 50px;
+  margin-bottom:: 100px;
+}
+
+#contenairShow
+ {
+   width: 50%;
+   height: auto;
+
+   display: flex;
+   flex-direction: column;
+   justify-content: space-around;
+ }
+
+ .titreShow, .texteShow
+ {
+   text-align: center;
+ }
+ .dateShow
+ {
+   text-align: right;
+ }
+
+ /* Index / User */
+#blocLienUserHome
+{
+  width: auto;
+  height: 100%;
+}
+#formHome
+{
+  width: 100%;
+  height: 100%;
+}
+
+#home
+{
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+
+  background-color: rgba(0,0,0,0.7);
+  padding: 20px 15px 20px 15px;
+  border-radius: 10px;
+
+  color: white;
+}
+
+.customDivIcon
+{
+    width: 125px;
+
+    background-color: rgba(0,0,0,0.7);
+    padding: 10px 5px 10px 5px;
+    margin: 20px 15px 20px 15px;
+    border-radius: 10px;
+
+    position: relative;
+    left: 58%;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+}
+
+.customIcon
+{
+  margin-bottom: 10px;
+}
+.customIcon:hover .fas
+{
+  color:cornflowerblue;
+  transition-duration: 250ms;
+}
 
 
-
-
-
-
-
-
-
-/*  Account  */ 
+/*  Account  */
 #enteteAccount
 {
     background-image: url('ressources/account.jpg');
     width:100%;
     height: 730px;
-	
+
 	display: flex;
 	justify-content: space-around;
 	margin-top: 100px;
@@ -270,17 +358,17 @@ textarea
 {
 	list-style: none;
 	text-align: center;
-	
+
 	margin-top: 20px;
 	margin-bottom: 20px;
-	
+
 	padding: 10px 5px 10px 5px;
 	background-color: rgba(0,0,0,0.8);
 	border-radius: 8px;
 }
 
 
-/* Account - Login  */ 
+/* Account - Login  */
 
 .conteneurCentral
 {
@@ -294,21 +382,21 @@ textarea
 	display: flex;
 	flex-direction: column;
 	justify-content: center;
-	
+
 	height: 600px;
 }
 
 #formulaireConnexion
 {
-    
-	
+
+
     border:solid 2px rgba(0,0,0,0.7);
     border-radius:2px;
-	
+
     margin-top: 125px;
 	padding-left: 10px;
 	padding-right: 10px;
-	
+
     width:400px;
     height:350px;
     align-items: center;
@@ -325,7 +413,7 @@ textarea
 	display:flex;
     flex-direction: column;
     justify-content: space-around;
-	
+
 	height: 100%;
 
 }
@@ -336,7 +424,7 @@ textarea
 }
 
 
-/* Footer */ 
+/* Footer */
 footer
 {
     margin-top: 100px;
@@ -354,17 +442,17 @@ footer div
 	display:flex;
 	justify-content: space-around;
 	flex-direction: row;
-	
+
 	width: 200px;
-	
+
     margin: 20px 15px 0px 15px;
 }
 
-footer div .fab 
+footer div .fab
 {
 	color:white;
 }
-footer div .fab:hover 
+footer div .fab:hover
 {
     color:cornflowerblue;
     transition-duration: 250ms;
