@@ -4,9 +4,15 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
+
+use App\Entity\User;
+
 use App\Form\UserLoginType;
 use App\Form\UpdateUserType;
 use App\Form\UserRegisterType;
+
+use Symfony\Component\HttpFoundation\Request;
+
 
 class UserController extends AbstractController
 {
@@ -47,11 +53,33 @@ class UserController extends AbstractController
 
 
 	/**
-     * @Route("/account/register", name="user.newUser")
+     * @Route("/account/register", name="user.new")
      */
-	public function newUser()
+	public function new(Request $request)
     {
 		$form = $this->createForm(UserRegisterType::class);
+
+    // Si un formulaire est envoyé en méthode POST
+    if ($request -> isMethod('POST')) {
+
+      $form-> handleRequest($request);
+
+      if ( $form->isSubmitted() &&  $form->isValid()) {
+
+        $user = new User();
+
+        $user -> setUsername ($form['username']-> getData());
+        $user -> setMail ($form['mail']-> getData());
+        $user -> setPassword ($form['password']-> getData());
+        $user -> setSalt ("default");
+        $user -> setRoles ("User");
+
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($user);
+        $em->flush();
+
+      }
+    }
 
         return $this->render('user/newUser.html.twig', [
 			'form' => $form->createview() ,
@@ -61,12 +89,33 @@ class UserController extends AbstractController
 
 
 	/**
-     * @Route("/account/modify", name="user.updateUser")
+     * @Route("/account/modify", name="user.update")
      */
-	public function updateUser()
+	public function update(String $username, Request $request)
     {
 
 		$form = $this->createForm(UpdateUserType::class);
+
+    // Si un formulaire est envoyé en méthode POST
+    if ($request -> isMethod('POST')) {
+
+        $form-> handleRequest($request);
+
+        if ( $form->isSubmitted() &&  $form->isValid()) {
+
+            $repositoryUpdate = $this->getDoctrine()->getRepository(User::class);
+            $user = $repositoryUpdate->findOneByTitre($username);
+
+            $user -> setUsername ($form['username']-> getData());
+            $user -> setMail ($form['mail']-> getData());
+            $user -> setPassword ($form['password']-> getData());
+
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
+
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+        }
+    }
 
         return $this->render('user/updateUser.html.twig', [
 			'form' => $form->createview() ,
@@ -75,10 +124,19 @@ class UserController extends AbstractController
     }
 
 	/**
-     * @Route("/account/unsubscribe", name="user.deleteUser")
+     * @Route("/account/unsubscribe", name="user.delete")
      */
-	public function deleteUser()
+	public function delete(String $username)
     {
+
+      $repository = $this->getDoctrine()->getRepository(User::class);
+      $repositorySupress = $this->getDoctrine()->getRepository(User::class);
+
+      $user = $repositorySupress->findOneByTitre($username);
+
+      $em = $this->getDoctrine()->getManager();
+      $em->remove($user);
+      $em->flush();
 
         return $this->render('user/deleteUser.html.twig', [
             'controller_name' => 'UserController',

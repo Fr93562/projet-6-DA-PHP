@@ -32,7 +32,7 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $password;
-	
+
 	/**
    	* @ORM\Column(name="salt", type="string", length=255)
    	*/
@@ -42,7 +42,7 @@ class User
    	* @ORM\Column(name="roles", type="string", length=100)
    	*/
   	private $roles;
-	
+
     /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Pseudo", orphanRemoval=true)
      */
@@ -82,7 +82,7 @@ class User
 
         return $this;
     }
-	
+
 	public function getPassword(): ?string
     {
         return $this->$password;
@@ -94,7 +94,7 @@ class User
 
         return $this;
     }
-	
+
 	public function getSalt(): ?string
     {
         return $this->salt;
@@ -106,7 +106,7 @@ class User
 
         return $this;
     }
-	
+
 	public function getRoles(): ?string
     {
         return $this->roles;

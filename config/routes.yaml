@@ -9,13 +9,17 @@ trick_show:
     controller: App\Controller\TrickController::show
 
 trick_showUser:
-    path: /viewUser/{titre}
+    path: /show/{titre}
     controller: App\Controller\TrickController::showUser
 
 trick_showUserUpdate:
-    path: /viewupdate/{titre}
+    path: /update/{titre}
     controller: App\Controller\TrickController::showUserUpdate
 
 trick_showUserDelete:
     path: /delete/{titre}
     controller: App\Controller\TrickController::showUserDelete
+
+user_update:
+    path: /account/modify/{username}
+    controller: App\Controller\UserController::update

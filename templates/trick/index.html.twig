@@ -25,7 +25,7 @@
                 	<h4 class="titre">{{ advert.titre }}</h4>
                 	<p class="contenu">{{ advert.texte[1:40] }}</p>
                 	<p class="auteur"> {{ advert.dateCreation|date("m/d/Y")}} </p>
-                	<p class="lien"><a class="customLien" href='/view/{{ advert.titre}} '>Lire la suite</a></p>
+                	<p class="lien"><a class="customLien" href='/view/{{ advert.titre }} '>Lire la suite</a></p>
 				</article>
 			</div>
 		{% endfor %}
