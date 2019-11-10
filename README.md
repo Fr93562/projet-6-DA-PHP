@@ -11,7 +11,7 @@
 * Date: 01/10/2019
 
 * Version: 0.1
-* Etat du projet: En cpurs
+* Etat du projet: En cours
 * Site web du projet: A venir
 
 
