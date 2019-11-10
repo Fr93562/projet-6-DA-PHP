@@ -10,7 +10,7 @@ use Twig\TwigFunction;
  * Transforme le String en argument en Slug
  * S'utilise avec Slugger.php pour retirer le slug
  */
- /*
+/*
 class SlugTitle extends \Twig_Extension
 {
     public function getFunctions() {

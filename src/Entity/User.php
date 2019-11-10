@@ -34,17 +34,17 @@ class User
     private $password;
 
 	/**
-   	* @ORM\Column(name="salt", type="string", length=255)
+   	* @ORM\Column(name="salt", type="string", length=255, nullable=true, options={"default" : "default"})
    	*/
   	private $salt;
 
   	/**
-   	* @ORM\Column(name="roles", type="string", length=100)
+   	* @ORM\Column(name="roles", type="string", length=100, nullable=true, options={"default" : "User"})
    	*/
   	private $roles;
 
     /**
-     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="Pseudo", orphanRemoval=true)
+     * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="username", orphanRemoval=true)
      */
 
     private $comments;
@@ -61,7 +61,7 @@ class User
 
     public function getUsername(): ?string
     {
-        return $this-username;
+        return $this->username;
     }
 
     public function setUsername(string $username): self
@@ -85,7 +85,7 @@ class User
 
 	public function getPassword(): ?string
     {
-        return $this->$password;
+        return $this->password;
     }
 
     public function setPassword(string $password): self
@@ -131,7 +131,7 @@ class User
     {
         if (!$this->comments->contains($comment)) {
             $this->comments[] = $comment;
-            $comment->setPseudo($this);
+            $comment->setUsername($this);
         }
 
         return $this;
@@ -142,8 +142,8 @@ class User
         if ($this->comments->contains($comment)) {
             $this->comments->removeElement($comment);
             // set the owning side to null (unless already changed)
-            if ($comment->getPseudo() === $this) {
-                $comment->setPseudo(null);
+            if ($comment->getUsername() === $this) {
+                $comment->setUsername(null);
             }
         }
 

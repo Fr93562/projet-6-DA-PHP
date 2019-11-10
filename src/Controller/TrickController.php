@@ -8,10 +8,14 @@ use Symfony\Component\Routing\Annotation\Route;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Entity\Home;
+use App\Entity\User;
 
+use App\Form\HomeType;
 use App\Form\CreateTrickType;
 use App\Form\UpdateTrickType;
-use App\Form\HomeType;
+use App\Form\CommentType;
+
+use App\Controller\CommentController;
 
 use Symfony\Component\HttpFoundation\Request;
 
@@ -22,7 +26,7 @@ class TrickController extends AbstractController
   /**
    * @Route("/", name="trick.index")
 	 *
-   * Méthode qui affiche la page d'accueil du site
+   * Affiche la page d'accueil du site
    * Utilise les entités Home et Trick
    */
     public function index()
@@ -40,7 +44,7 @@ class TrickController extends AbstractController
     /**
 	   * @Route("/homeUser", name="trick.indexUser")
      *
-     * Méthode qui affiche la page d'accueil du site pour un user connecté
+     * Affiche la page d'accueil du site pour un user connecté
      * Prend l'objet Request en argument et utilise les entités Home et Trick
      * Si l'objet Request contient des variables POST, l'accueil est mis à jour.
      */
@@ -82,7 +86,7 @@ class TrickController extends AbstractController
   /**
    * @Route("/new/", name="trick.new")
    *
-   * Mméthode qui affiche le formulaire de création d'un trick
+   * Affiche le formulaire de création d'un trick
    * Prend l'objet request en argument
    * Si Request contient des données en POST, le trick est ajouté à la BDD
    * Le render est différent en fonction de l'objet Request
@@ -99,22 +103,16 @@ class TrickController extends AbstractController
         if ( $form->isSubmitted() &&  $form->isValid()) {
 
           $trick = new Trick();
-
-          $trick -> setTitre ($form['titre']-> getData());
-          $trick -> setLienVideo ($form['lienVideo']-> getData());
-          $trick -> setLienImage ($form['lienImage']-> getData());
-          $trick -> setTexte ($form['texte']-> getData());
-          $trick -> setDateCreation ($form['dateCreation']-> getData());
-          $trick -> setDateMiseAJour ($form['dateMiseAJour']-> getData());
+          $trick = $form -> getData();
 
           $em = $this->getDoctrine()->getManager();
           $em->persist($trick);
           $em->flush();
 
           return self::showUser($form['titre']-> getData());
-
         }
-    } else {
+
+      } else {
 
       // Si le formulaire n'a pas été posté. Appelle le formulaire
       return $this->render('trick/showUserCreate.html.twig', [
@@ -126,7 +124,7 @@ class TrickController extends AbstractController
   /**
    * @Route("/view/{$titre}", name="trick.show")
    *
-   * Méthode qui affiche un trick en particulier et l'espace de discussion général
+   * Affiche un trick en particulier et l'espace de discussion général
    * Prend un String en argument qui correspond au titre du trick
    * Utilise les entités Trick et Comment
    */
@@ -145,33 +143,52 @@ class TrickController extends AbstractController
   /**
    * @Route("/show/{$titre}", name="trick.showUser")
    *
-   * Méthode qui affiche un trick particulier et l'espace de discussion général pour un user connecté
+   * Affiche un trick particulier et l'espace de discussion général pour un user connecté
    * Prend un String en argument qui correspond au titre du trick
    * Utilise les entités Trick et Comment
    * Utilise le formulaire HomeType
    */
-    public function showUser(String $titre)
+    public function showUser(String $titre, Request $request)
       {
 
       $repository = $this->getDoctrine()->getRepository(Trick::class);
       $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
 
+      $form = $this->createForm(CommentType::class);
+
+      if ($request -> isMethod('POST')) {
+
+          $form-> handleRequest($request);
+
+          if ( $form->isSubmitted() &&  $form->isValid()) {
+
+              $test = "test2";
+              //$repositoryUser = $this->getDoctrine()->getRepository(User::class);
+              //$repositoryUser->findOneByUsername($test)
+              $createComment = new CommentController();
+              $createComment -> create( $test, $form['texte']-> getData());
+          }
+        }
+
+
           return $this->render('trick/showUser.html.twig', [
         'advert'=> $listAdvert = $repository->findOneByTitre($titre),
+        'form' => $form->createview(),
         'listComments'=> $listComments = $repositoryComments->findAll(),
       ]);
+
       }
 
   /**
-   * @Route("/update/{$titre}", name="trick.showUserUpdate")
+   * @Route("/update/{$titre}", name="trick.update")
    *
-   * Méthode qui affiche le formulaire de mise à jour d'un trick
+   * Affiche le formulaire de mise à jour d'un trick
    * Prend un String en argument pour le titre et l'objet Request
    * Si l'objet Request contient des variables POST, l'accueil est mis à jour.
    * Utilise l'entité Trick
    * Utilise le formulaire UpdateTrickType
    */
-  	public function showUserUpdate(String $titre, Request $request)
+  	public function update(String $titre, Request $request)
       {
 
   		$repository = $this->getDoctrine()->getRepository(Trick::class);
@@ -188,14 +205,9 @@ class TrickController extends AbstractController
             if ( $form->isSubmitted() &&  $form->isValid()) {
 
                 $repositoryUpdate = $this->getDoctrine()->getRepository(Trick::class);
-                $trick = $repositoryUpdate->findOneByTitre($titre);
 
-                $trick -> setTitre ($form['titre']-> getData());
-                $trick -> setLienVideo ($form['lienVideo']-> getData());
-                $trick -> setLienImage ($form['lienImage']-> getData());
-                $trick -> setTexte ($form['texte']-> getData());
-                $trick -> setDateCreation ($form['dateCreation']-> getData());
-                $trick -> setDateMiseAJour ($form['dateMiseAJour']-> getData());
+                $trick = $repositoryUpdate->findOneByTitre($titre);
+                $trick = $form -> getData();
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
@@ -211,16 +223,13 @@ class TrickController extends AbstractController
       }
 
   /**
-   * @Route("/delete/{$titre}", name="trick.showUserDelete")
+   * @Route("/delete/{$titre}", name="trick.delete")
    *
-   * Méthode qui permet la suppression d'un trick de la BDD
+   * Permet la suppression d'un trick de la BDD
    * Prend un string en argument pour le titre
    * Utilise l'entité Trick
-   *
-   * Supprime d'abord le trick en BDD
-   * Appelle ensuite la méthode indexUser();
    */
-  	public function showUserDelete(String $titre)
+  	public function delete(String $titre)
     {
 
   		$repository = $this->getDoctrine()->getRepository(Trick::class);

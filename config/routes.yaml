@@ -1,9 +1,11 @@
 # config/routes.yaml
 
+# home path
 home:
     path: /
     controller: app\Controller\TrickController::index
 
+# trick path
 trick_show:
     path: /view/{titre}
     controller: App\Controller\TrickController::show
@@ -14,12 +16,17 @@ trick_showUser:
 
 trick_showUserUpdate:
     path: /update/{titre}
-    controller: App\Controller\TrickController::showUserUpdate
+    controller: App\Controller\TrickController::update
 
 trick_showUserDelete:
     path: /delete/{titre}
-    controller: App\Controller\TrickController::showUserDelete
+    controller: App\Controller\TrickController::delete
 
+# user path
 user_update:
-    path: /account/modify/{username}
+    path: /account/{username}/modify
     controller: App\Controller\UserController::update
+
+user_delete:
+    path: /account/{username}/unsubscribe
+    controller: App\Controller\UserController::delete

@@ -17,9 +17,11 @@ use Symfony\Component\HttpFoundation\Request;
 class UserController extends AbstractController
 {
 
-    /**
-     * @Route("/account/", name="user.index")
-     */
+  /**
+   * @Route("/account/", name="user.index")
+   *
+   * Affiche la page d'accueil des users
+   */
     public function index()
     {
         return $this->render('user/index.html.twig', [
@@ -27,23 +29,27 @@ class UserController extends AbstractController
         ]);
     }
 
-		/**
-     * @Route("/account/login", name="user.login")
-     */
+ /**
+  * @Route("/account/login", name="user.login")
+  *
+  * Sert à la connection des users
+  */
 	public function login()
     {
 
 		$form = $this->createForm(UserLoginType::class);
 
         return $this->render('user/login.html.twig', [
-			'form' => $form->createview() ,
+			      'form' => $form->createview() ,
             'controller_name' => 'UserController',
         ]);
     }
 
-    /**
-     * @Route("/account/logout", name="user.logout")
-     */
+/**
+ * @Route("/account/logout", name="user.logout")
+ *
+ * Sert à déconnecter l'user du site
+ */
 	public function logout()
     {
         return $this->render('user/logout.html.twig', [
@@ -52,14 +58,15 @@ class UserController extends AbstractController
     }
 
 
-	/**
-     * @Route("/account/register", name="user.new")
-     */
+/**
+ * @Route("/account/register", name="user.new")
+ *
+ * Sert à créer un nouvel utilisateur qui sera rajouté en base de données
+ */
 	public function new(Request $request)
     {
 		$form = $this->createForm(UserRegisterType::class);
 
-    // Si un formulaire est envoyé en méthode POST
     if ($request -> isMethod('POST')) {
 
       $form-> handleRequest($request);
@@ -67,36 +74,34 @@ class UserController extends AbstractController
       if ( $form->isSubmitted() &&  $form->isValid()) {
 
         $user = new User();
-
-        $user -> setUsername ($form['username']-> getData());
-        $user -> setMail ($form['mail']-> getData());
-        $user -> setPassword ($form['password']-> getData());
-        $user -> setSalt ("default");
-        $user -> setRoles ("User");
+        $user = $form -> getData();
 
         $em = $this->getDoctrine()->getManager();
         $em->persist($user);
         $em->flush();
-
       }
     }
 
-        return $this->render('user/newUser.html.twig', [
-			'form' => $form->createview() ,
+    return $this->render('user/newUser.html.twig', [
+			      'form' => $form->createview() ,
             'controller_name' => 'UserController',
         ]);
     }
 
 
-	/**
-     * @Route("/account/modify", name="user.update")
-     */
+/**
+ * @Route("/account/{$username}/modify", name="user.update")
+ *
+ * Sert à mettre à jour les données de l'user
+ */
 	public function update(String $username, Request $request)
     {
 
-		$form = $this->createForm(UpdateUserType::class);
+    $repository = $this->getDoctrine()->getRepository(User::class);
 
-    // Si un formulaire est envoyé en méthode POST
+		$form = $this->createForm(UpdateUserType::class,
+           $repository->findOneByUsername($username));
+
     if ($request -> isMethod('POST')) {
 
         $form-> handleRequest($request);
@@ -104,11 +109,9 @@ class UserController extends AbstractController
         if ( $form->isSubmitted() &&  $form->isValid()) {
 
             $repositoryUpdate = $this->getDoctrine()->getRepository(User::class);
-            $user = $repositoryUpdate->findOneByTitre($username);
 
-            $user -> setUsername ($form['username']-> getData());
-            $user -> setMail ($form['mail']-> getData());
-            $user -> setPassword ($form['password']-> getData());
+            $user = $repositoryUpdate->findOneByUsername($username);
+            $user = $form -> getData();
 
             $em = $this->getDoctrine()->getManager();
             $em->flush();
@@ -117,28 +120,30 @@ class UserController extends AbstractController
         }
     }
 
-        return $this->render('user/updateUser.html.twig', [
-			'form' => $form->createview() ,
+    return $this->render('user/updateUser.html.twig', [
+			      'form' => $form->createview() ,
             'controller_name' => 'UserController',
         ]);
     }
 
-	/**
-     * @Route("/account/unsubscribe", name="user.delete")
-     */
+/**
+ * @Route("/account/{$username}/delete", name="user.delete")
+ *
+ * Sert à la suppression d'un user de la base de données
+ */
 	public function delete(String $username)
     {
 
       $repository = $this->getDoctrine()->getRepository(User::class);
       $repositorySupress = $this->getDoctrine()->getRepository(User::class);
 
-      $user = $repositorySupress->findOneByTitre($username);
+      $user = $repositorySupress->findOneByUsername($username);
 
       $em = $this->getDoctrine()->getManager();
       $em->remove($user);
       $em->flush();
 
-        return $this->render('user/deleteUser.html.twig', [
+      return $this->render('user/deleteUser.html.twig', [
             'controller_name' => 'UserController',
         ]);
     }

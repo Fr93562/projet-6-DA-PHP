@@ -21,6 +21,8 @@ class Trick
      */
     private $titre;
 
+    private $slug;
+
     /**
      * @ORM\Column(type="string", length=255, nullable=true)
      */
