@@ -14,11 +14,10 @@
               <a class="customIcon" href='/delete/{{ advert.titre}} '><i class="fas fa-trash-alt"></i></a>
           </div>
         <h4 class="titreShow">{{ advert.titre }}</h4>
-        <p class="texteShow">{{ advert.texte[1:40] }}</p>
         <p class="dateShow"> {{ advert.dateCreation|date("m/d/Y")}}
           {% if advert.dateMiseAJour != null %} et mis à jour le
         {{ advert.dateMiseAJour|date("m/d/Y")}} {% endif %}.</p>
-
+         <p class="texteShow">{{ advert.texte[1:40] }}</p>
     </div>
     </div>
   </div>

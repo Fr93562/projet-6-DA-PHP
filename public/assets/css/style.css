@@ -271,7 +271,7 @@ textarea
 #show
 {
   display: flex;
-  flex-direction: row;
+  flex-direction: column;
   justify-content: center;
 
   margin-top: 50px;
@@ -294,8 +294,52 @@ textarea
  }
  .dateShow
  {
-   text-align: right;
+   text-align: center;
  }
+
+ aside 
+ {
+     display: flex;
+     justify-content: center;
+     flex-direction: row;
+ }
+#listComment
+{
+    width: 600px;
+    height: auto;
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+ .contenairComment
+{
+    height: 150px;
+    width: 100%;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    margin: 25px 0px 25px 0px;
+
+    background-color: aliceblue;
+}
+.contenairComment:hover
+{
+    transition-duration: 3000ms;
+    background-color: white;
+}
+.commentPseudo
+{
+    margin-left: 10px;
+    font-style: italic;
+}
+.commentTexte
+{
+    margin: 10px 0px 10px 10px;
+}
 
  /* Index / User */
  #enteteUser
@@ -331,7 +375,7 @@ textarea
     margin-left: 20px;
 }
 
-#enteteUser form #user_login div button, #enteteUser form #user_register div button
+#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button
 {
     position: relative;
     left: 50%;
@@ -423,6 +467,78 @@ textarea
   color:cornflowerblue;
   transition-duration: 250ms;
 }
+
+/* User create */
+#enteteCreateUser
+{
+    background-image: url('ressources/subscribe.jpg');
+    width:100%;
+    height: 730px;
+
+	display: flex;
+	justify-content: space-around;
+}
+
+/* Create Trick + update tTrick */
+#enteteCreate
+{
+    background-image: url('ressources/create.jpg');
+    width:100%;
+    height: 730px;
+
+	display: flex;
+	justify-content: space-around;
+}
+
+#enteteUpdate
+{
+    background-image: url('ressources/update.jpg');
+    width:100%;
+    height: 730px;
+
+	display: flex;
+	justify-content: space-around;
+}
+
+#containerTrick
+{
+    width: 400px;
+    height: 500px;
+    position: relative;
+    top: 15%;
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+}
+.contenairTrickForm, .contenairTrickForm form
+{
+    height: 100%;
+}
+.contenairTrickForm form
+{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+}
+#create_trick, #update_trick
+{
+    height: 90%;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+#create_trick div, #update_trick div
+{
+    margin-left: 25px;
+}
+#create_trick_titre, #create_trick_lienVideo, #create_trick_lienImage, #create_trick_texte, #create_trick_dateCreation, #create_trick_dateMiseAJour, #update_trick_titre, #update_trick_lienVideo, #update_trick_lienImage, #update_trick_texte, #update_trick_dateCreation, #update_trick_dateMiseAJour
+{
+    margin-left: 20px;
+}
+
 
 
 /*  Account  */

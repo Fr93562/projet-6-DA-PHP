@@ -32,13 +32,14 @@ class TrickController extends AbstractController
     public function index()
     {
 
-        $repositoryHome = $this->getDoctrine()->getRepository(Home::class);
-		    $repository = $this->getDoctrine()->getRepository(Trick::class);
+      $repositoryHome = $this->getDoctrine()->getRepository(Home::class);
+		  $repository = $this->getDoctrine()->getRepository(Trick::class);
 
-        return $this->render('trick/index.html.twig', [
-			'listAdverts'=> $listAdverts = $repository->findAll(),
-      'home'=> $homeAdverts = $repositoryHome->find(1),
-		  ]);
+      return $this->render('trick/index.html.twig', [
+			  'listAdverts'=> $listAdverts = $repository->findAll(),
+        'home'=> $homeAdverts = $repositoryHome->find(1),
+      ]);
+      
     }
 
     /**
@@ -55,8 +56,8 @@ class TrickController extends AbstractController
       $repository = $this->getDoctrine()->getRepository(Trick::class);
 
       $form = $this->createForm(HomeType::class,
-             $repositoryHome->find(1)
-        );
+        $repositoryHome->find(1)
+      );
 
       // Si un formulaire est envoyé en méthode POST
       if ($request -> isMethod('POST')) {
@@ -65,22 +66,22 @@ class TrickController extends AbstractController
 
           if ( $form->isSubmitted() &&  $form->isValid()) {
 
-              $repositoryHomeUpdate = $this->getDoctrine()->getRepository(Home::class);
+            $repositoryHomeUpdate = $this->getDoctrine()->getRepository(Home::class);
 
-              $home = $repositoryHomeUpdate->find(1);
-              $home -> setContenu ($form['contenu']-> getData());
-              $em = $this->getDoctrine()->getManager();
-              $em->flush();
+            $home = $repositoryHomeUpdate->find(1);
+            $home -> setContenu ($form['contenu']-> getData());
+            $em = $this->getDoctrine()->getManager();
+            $em->flush();
 
-              $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
+            $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
           }
       }
 
-        return $this->render('trick/indexUser.html.twig', [
-          'form' => $form->createview(),
-          'home'=> $homeAdverts = $repositoryHome->find(1),
-          'listAdverts'=> $listAdverts = $repository->findAll(),
-    ]);
+      return $this->render('trick/indexUser.html.twig', [
+        'form' => $form->createview(),
+        'home'=> $homeAdverts = $repositoryHome->find(1),
+        'listAdverts'=> $listAdverts = $repository->findAll(),
+      ]);
   }
 
   /**
@@ -129,16 +130,16 @@ class TrickController extends AbstractController
    * Utilise les entités Trick et Comment
    */
 	public function show(String $titre)
-    {
+  {
 
 		$repository = $this->getDoctrine()->getRepository(Trick::class);
 		$repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
 
-        return $this->render('trick/show.html.twig', [
+    return $this->render('trick/show.html.twig', [
 			'advert'=> $listAdvert = $repository->findOneByTitre($titre),
 			'listComments'=> $listComments = $repositoryComments->findAll(),
 		]);
-    }
+  }
 
   /**
    * @Route("/show/{$titre}", name="trick.showUser")
@@ -148,25 +149,22 @@ class TrickController extends AbstractController
    * Utilise les entités Trick et Comment
    * Utilise le formulaire HomeType
    */
-    public function showUser(String $titre, Request $request)
-      {
+  public function showUser(String $titre, Request $request)
+  {
 
       $repository = $this->getDoctrine()->getRepository(Trick::class);
       $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
-
       
       $form = $this->createForm(CommentType::class, [
           'action' => $this->generateUrl('Comment.create'),
           ]);
       
-
           return $this->render('trick/showUser.html.twig', [
         'advert'=> $listAdvert = $repository->findOneByTitre($titre),
         'form' => $form->createview(),
         'listComments'=> $listComments = $repositoryComments->findAll(),
       ]);
-
-      }
+  }
 
   /**
    * @Route("/update/{$titre}", name="trick.update")
@@ -174,42 +172,41 @@ class TrickController extends AbstractController
    * Affiche le formulaire de mise à jour d'un trick
    * Prend un String en argument pour le titre et l'objet Request
    * Si l'objet Request contient des variables POST, l'accueil est mis à jour.
-   * Utilise l'entité Trick
-   * Utilise le formulaire UpdateTrickType
+   * Utilise l'entité Trick et le formulaire UpdateTrickType
    */
-  	public function update(String $titre, Request $request)
-      {
+  public function update(String $titre, Request $request)
+  {
 
-  		$repository = $this->getDoctrine()->getRepository(Trick::class);
+  	$repository = $this->getDoctrine()->getRepository(Trick::class);
 
-      $form = $this->createForm(UpdateTrickType::class,
-             $repository->findOneByTitre($titre)
-        );
+    $form = $this->createForm(UpdateTrickType::class,
+      $repository->findOneByTitre($titre)
+    );
 
-        // Si un formulaire est envoyé en méthode POST
-        if ($request -> isMethod('POST')) {
+    // Si un formulaire est envoyé en méthode POST
+    if ($request -> isMethod('POST')) {
 
-            $form-> handleRequest($request);
+      $form-> handleRequest($request);
 
-            if ( $form->isSubmitted() &&  $form->isValid()) {
+      if ( $form->isSubmitted() &&  $form->isValid()) {
 
-                $repositoryUpdate = $this->getDoctrine()->getRepository(Trick::class);
+        $repositoryUpdate = $this->getDoctrine()->getRepository(Trick::class);
 
-                $trick = $repositoryUpdate->findOneByTitre($titre);
-                $trick = $form -> getData();
+        $trick = $repositoryUpdate->findOneByTitre($titre);
+        $trick = $form -> getData();
 
-                $em = $this->getDoctrine()->getManager();
-                $em->flush();
+        $em = $this->getDoctrine()->getManager();
+        $em->flush();
 
-                $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-            }
-        }
-
-          return $this->render('trick/showUserUpdate.html.twig', [
-          'form' => $form->createview(),
-  			'advert'=> $listAdvert = $repository->findOneByTitre($titre),
-  		]);
+        $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
       }
+    }
+
+     return $this->render('trick/showUserUpdate.html.twig', [
+      'form' => $form->createview(),
+  	  'advert'=> $listAdvert = $repository->findOneByTitre($titre),
+  	]);
+  }
 
   /**
    * @Route("/delete/{$titre}", name="trick.delete")
@@ -218,19 +215,18 @@ class TrickController extends AbstractController
    * Prend un string en argument pour le titre
    * Utilise l'entité Trick
    */
-  	public function delete(String $titre)
-    {
+  public function delete(String $titre)
+  {
 
-  		$repository = $this->getDoctrine()->getRepository(Trick::class);
-      $repositorySupress = $this->getDoctrine()->getRepository(Trick::class);
+  	$repository = $this->getDoctrine()->getRepository(Trick::class);
+    $repositorySupress = $this->getDoctrine()->getRepository(Trick::class);
 
-      $trick = $repositorySupress->findOneByTitre($titre);
+    $trick = $repositorySupress->findOneByTitre($titre);
 
-      $em = $this->getDoctrine()->getManager();
-      $em->remove($trick);
-      $em->flush();
+    $em = $this->getDoctrine()->getManager();
+    $em->remove($trick);
+    $em->flush();
 
-      self::indexUser(Request);
-
-    }
+    self::indexUser(Request);
+  }
 }

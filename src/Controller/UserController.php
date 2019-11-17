@@ -130,7 +130,7 @@ class UserController extends AbstractController
     }
 
 /**
- * @Route("/account/{$username}/delete", name="user.delete")
+ * @Route("/account/{$username}/unsubscribe", name="user.delete")
  *
  * Sert à la suppression d'un user de la base de données
  */

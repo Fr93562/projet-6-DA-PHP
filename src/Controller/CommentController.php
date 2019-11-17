@@ -7,6 +7,7 @@ use Symfony\Component\Routing\Annotation\Route;
 
 use App\Entity\Comment;
 use App\Entity\User;
+use App\Entity\Trick;
 
 use App\Form\CommentType;
 
@@ -16,82 +17,45 @@ use Symfony\Component\HttpFoundation\Request;
 class CommentController extends AbstractController
 {
 
-    /**
-     * @Route("/show/{$titre}/post", name="Comment.create")
-     * 
-     * Crée un nouveau commentaire
-     * Prend l'user à l'origine de la création sous la forme d'un String
-     */
-      public function  create(String $titre, Request $request)
-      {
+/**
+  * @Route("/show/{$titre}/post", name="Comment.create")
+  * 
+  * Crée un nouveau commentaire
+  * Retrouve l'user connecté et l'utilise pour créer un commentaire
+  * Affiche la page des commentaires par la suite
+  */
+  public function  create(String $titre, Request $request)
+  {
 
-        echo("test");
+    $repository = $this->getDoctrine()->getRepository(Trick::class);
+    $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
 
-        $form = $this->createForm(CreateTrickType::class);
+    $form = $this->createForm(CommentType::class);
 
-        if ($request -> isMethod('POST')) {
+    if ($request -> isMethod('POST')) {
 
-          $form-> handleRequest($request);
+      $form-> handleRequest($request);
 
-          if ( $form->isSubmitted() &&  $form->isValid()) {
+      if ( $form->isSubmitted() &&  $form->isValid()) {
 
-              $test = "test2";
-              $userComment = new User();
-              $userComment -> setUsername($test);
+        $test = "test3";
+        $repositoryUser = $this->getDoctrine()->getRepository(User::class);
+        $userTest = $repositoryUser->findOneByUsername($test);
 
-              $comment = new Comment();
-              $comment = setPseudo($userComment);
-              $comment = setTexte ($form['texte'] -> getData());
-
+        $comment = new Comment();
+        $comment -> setUsername($userTest);
+        $comment -> setTexte ($form['texte'] -> getData());
     
-              $em = $this->getDoctrine()->getManager();
-
-              $em->persist($comment);
-              $em->flush();
-          }
-        }
-
-        return $this->render('trick/indexUser.html.twig', [
-          'form' => $form->createview(),
-          'home'=> $homeAdverts = $repositoryHome->find(1),
-          'listAdverts'=> $listAdverts = $repository->findAll(),
-    ]);
-
-      }
-
-    /**
-     * Permet la mise à jour de ses commentaires
-     * Prend l'user à l'origine de la création sous la forme d'un String
-     */
-      public function update(String $user, $commentContent)
-        {
-
-
-          $commentRepository = $this->getDoctrine()->getRepository(Trick::class);
-
-          $comment = $commentRepository->findOneByTitre($titre);
-          $comment = $form -> getData();
-
-          $em = $this->getDoctrine()->getManager();
-          $em->flush();
-
-          $request->getSession()->getFlashBag()->add('notice', 'Annonce bien enregistrée.');
-
-        }
-
-    /**
-     * Permet la suppression d'un de ses commentaires
-     * Prend l'user à l'origine de la création sous la forme d'un String
-     */
-      public function delete($id)
-      {
-
-        $commentRepository = $this->getDoctrine()->getRepository(Comment::class);
-        $comment = $commentRepository->find($id);
-
         $em = $this->getDoctrine()->getManager();
-        $em->remove($comment);
+        $em->persist($comment);
         $em->flush();
-
       }
+    }
+
+    return $this->render('trick/showUser.html.twig', [
+      'advert'=> $listAdvert = $repository->findOneByTitre($titre),
+      'form' => $form->createview(),
+      'listComments'=> $listComments = $repositoryComments->findAll(),
+    ]);
+  }
 }
