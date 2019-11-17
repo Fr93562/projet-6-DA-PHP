@@ -6,10 +6,13 @@ use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
+use Service\Tools\Slugger;
+
+
 /**
  * @ORM\Entity(repositoryClass="App\Repository\UserRepository")
  */
-class User
+class User 
 {
     /**
      * @ORM\Id()
@@ -22,6 +25,8 @@ class User
      * @ORM\Column(type="string", length=255)
      */
     private $username;
+
+    private $slug;
 
     /**
      * @ORM\Column(type="string", length=255)
@@ -67,6 +72,18 @@ class User
     public function setUsername(string $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $titre): self
+    {
+        $this->slug = Slugger::slugify($titre);
 
         return $this;
     }

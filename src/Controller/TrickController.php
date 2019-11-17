@@ -154,22 +154,11 @@ class TrickController extends AbstractController
       $repository = $this->getDoctrine()->getRepository(Trick::class);
       $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
 
-      $form = $this->createForm(CommentType::class);
-
-      if ($request -> isMethod('POST')) {
-
-          $form-> handleRequest($request);
-
-          if ( $form->isSubmitted() &&  $form->isValid()) {
-
-              $test = "test2";
-              //$repositoryUser = $this->getDoctrine()->getRepository(User::class);
-              //$repositoryUser->findOneByUsername($test)
-              $createComment = new CommentController();
-              $createComment -> create( $test, $form['texte']-> getData());
-          }
-        }
-
+      
+      $form = $this->createForm(CommentType::class, [
+          'action' => $this->generateUrl('Comment.create'),
+          ]);
+      
 
           return $this->render('trick/showUser.html.twig', [
         'advert'=> $listAdvert = $repository->findOneByTitre($titre),

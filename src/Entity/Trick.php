@@ -3,6 +3,7 @@
 namespace App\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Service\Tools\Slugger;
 
 /**
  * @ORM\Entity(repositoryClass="App\Repository\TrickRepository")
@@ -61,6 +62,18 @@ class Trick
     public function setTitre(string $titre): self
     {
         $this->titre = $titre;
+
+        return $this;
+    }
+
+    public function getSlug(): ?string
+    {
+        return $this->slug;
+    }
+
+    public function setSlug(string $titre): self
+    {
+        $this->slug = Slugger::slugify($titre);
 
         return $this;
     }

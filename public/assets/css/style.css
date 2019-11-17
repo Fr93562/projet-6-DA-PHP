@@ -172,16 +172,23 @@ li a:hover
 }
 .contenairDiv
 {
-	width: 400px;
-	height: 400px;
-
     display: flex;
     flex-direction: column;
 
-	border: solid black 1px; /* A retirer */
-
-	margin-top: 15px;
+	width: 400px;
+    height: 400px;
+    
+    margin-top: 15px;
 	margin-bottom: 15px;
+
+    background-color: white;
+    border-radius: 20px;
+}
+
+.contenairDiv:hover
+{
+    background-color: lightblue;
+    transition-duration: 3000ms;
 }
 
 
@@ -291,6 +298,81 @@ textarea
  }
 
  /* Index / User */
+ #enteteUser
+{
+    width: 400px;
+    height: 500px;
+
+    position: relative;
+    top: 15%;
+
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    border-radius: 20px;
+}
+
+#user_login , #user_register
+{
+    width: auto;
+    height: 300px;
+
+    margin-left: 25px;
+
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+}
+
+#user_login_Pseudo, #user_login_Mot_de_passe , #user_register_username , #user_register_mail , #user_register_password
+{
+    margin-left: 20px;
+}
+
+#enteteUser form #user_login div button, #enteteUser form #user_register div button
+{
+    position: relative;
+    left: 50%;
+
+    background-color: rgba(255, 255, 255, 0.8);
+    padding: 15px 15px 15px 15px;
+    border-radius: 10px;
+    border-width: 1px;
+}
+
+.lienUser 
+{
+    font-size: 0.8em;
+    text-decoration: none;
+    font-style: italic;
+
+    color: black;
+}
+.lienUser:hover
+{
+    color:cornflowerblue;
+    transition-duration: 250ms;
+}
+#lienUserRegister
+{
+    margin-left: 220px;
+
+}
+#lienReturnAccount
+{
+    margin-left: 170px;
+}
+#lienUserForgotPassword
+{
+    margin-left: 195px;
+}
+
+
+
+
+
 #blocLienUserHome
 {
   width: auto;
@@ -352,7 +434,6 @@ textarea
 
 	display: flex;
 	justify-content: space-around;
-	margin-top: 100px;
 }
 .lienAccount
 {
@@ -407,7 +488,7 @@ textarea
 	height: 100%;
 }
 
-
+/*
 #user_login
 {
 	display:flex;
@@ -417,6 +498,7 @@ textarea
 	height: 100%;
 
 }
+*/
 
 #forgotPassword
 {
@@ -427,7 +509,6 @@ textarea
 /* Footer */
 footer
 {
-    margin-top: 100px;
     height: 75px;
     width: 100%;
     display: flex;

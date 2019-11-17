@@ -30,3 +30,9 @@ user_update:
 user_delete:
     path: /account/{username}/unsubscribe
     controller: App\Controller\UserController::delete
+
+# coment path
+
+comment_create:
+    path: /show/{titre}/post
+    controller: App\Controller\CommentController::create

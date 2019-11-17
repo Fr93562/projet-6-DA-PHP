@@ -1,13 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
 <section>
     <div id="enteteAccount">
-        <div id="enteteLien">
-			<ul>
-				<li class="lienAccount"> <a href="/account/login"> Se connecter </a> </li>
-				<li class="lienAccount"> <a href="/account/register"> Créer un compte </a></li>
-			</ul>
+        <div id="enteteUser">
+
+            {{ form(form) }}
+			<a class="lienUser" id="lienUserRegister" href="/account/register"> Crée un compte? </a> 
+            <a class="lienUser" id="lienUserForgotPassword" href="/account/register"> Mot de passe oublié? </a> 
+
         </div>
     </div>  
 </section>

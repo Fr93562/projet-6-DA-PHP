@@ -24,7 +24,10 @@ class UserController extends AbstractController
    */
     public function index()
     {
+        $form = $this->createForm(UserLoginType::class);
+
         return $this->render('user/index.html.twig', [
+            'form' => $form->createview() ,
             'controller_name' => 'UserController',
         ]);
     }
