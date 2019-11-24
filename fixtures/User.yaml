@@ -5,5 +5,4 @@ App\Entity\User:
         username: <name()>
         mail: <email()>
         password: <word()>
-        salt: default
-        roles: User
+        roles: [User]
