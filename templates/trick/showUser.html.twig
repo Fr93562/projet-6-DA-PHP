@@ -21,7 +21,7 @@
     </div>
     </div>
   </div>
-  {{ form(form ) }}
+  {{ form(form , { 'action': path("Comment.create", { 'titre' : advert.titre })} ) }}
 </section>
 
 {% endblock %}

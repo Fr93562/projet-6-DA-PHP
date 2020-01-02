@@ -1,17 +1,15 @@
 {% extends 'base.html.twig' %}
 
 {% block body %}
+
 <section>
-    <div id="enteteShowTrick"></div>
-</section>
-<section id="show">
-  <div id="containerShow">
-    <div class="contenairDivShow">
-      <div>
-        {{ form(form) }}
-    </div>
-    </div>
-  </div>
+    <div id="enteteCreateUser">
+        <div id="enteteUser">
+            <h1 id="formTitle" class="monCompteh1v2">Mettre à jour mes données</h1>
+            {{ form(form) }}
+            <a class="lienUser" id="lienReturnAccount" href="/account/"> Revenir à la page de connexion </a> 
+        </div>
+    </div>  
 </section>
 
 {% endblock %}

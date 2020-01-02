@@ -4,31 +4,31 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\Comment;
 use App\Entity\User;
 use App\Entity\Trick;
-
 use App\Form\CommentType;
 
-use Symfony\Component\HttpFoundation\Request;
-
-
+/**
+ * Gère les paths de Comment
+ */
 class CommentController extends AbstractController
 {
 
 /**
-  * @Route("/show/{$titre}/post", name="Comment.create")
-  * 
+  * @Route("/show//post", name="Comment.create")
+  * @IsGranted("IS_AUTHENTICATED_FULLY")
+
   * Crée un nouveau commentaire
-  * Retrouve l'user connecté et l'utilise pour créer un commentaire
-  * Affiche la page des commentaires par la suite
   */
-  public function  create(String $titre, Request $request)
+  public function  create(Request $request, AuthenticationUtils $authenticationUtils)
   {
 
-    $repository = $this->getDoctrine()->getRepository(Trick::class);
-    $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
+    $request = Request::createFromGlobals();
+    $titre = $request->query->get('titre');
 
     $form = $this->createForm(CommentType::class);
 
@@ -38,9 +38,11 @@ class CommentController extends AbstractController
 
       if ( $form->isSubmitted() &&  $form->isValid()) {
 
-        $test = "test3";
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
+
         $repositoryUser = $this->getDoctrine()->getRepository(User::class);
-        $userTest = $repositoryUser->findOneByUsername($test);
+        $userTest = $repositoryUser->findOneByUsername($lastUsername);
 
         $comment = new Comment();
         $comment -> setUsername($userTest);
@@ -52,10 +54,6 @@ class CommentController extends AbstractController
       }
     }
 
-    return $this->render('trick/showUser.html.twig', [
-      'advert'=> $listAdvert = $repository->findOneByTitre($titre),
-      'form' => $form->createview(),
-      'listComments'=> $listComments = $repositoryComments->findAll(),
-    ]);
+    return $this->redirectToRoute('trick.showUser');
   }
 }

@@ -4,22 +4,20 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
 use App\Entity\Trick;
 use App\Entity\Comment;
 use App\Entity\Home;
 use App\Entity\User;
-
 use App\Form\HomeType;
 use App\Form\CreateTrickType;
 use App\Form\UpdateTrickType;
 use App\Form\CommentType;
 
-use App\Controller\CommentController;
-
-use Symfony\Component\HttpFoundation\Request;
-
-
+/**
+ * Gère les paths de l'entité Trick
+ */
 class TrickController extends AbstractController
 {
 
@@ -27,27 +25,30 @@ class TrickController extends AbstractController
    * @Route("/", name="trick.index")
 	 *
    * Affiche la page d'accueil du site
-   * Utilise les entités Home et Trick
    */
     public function index()
     {
 
       $repositoryHome = $this->getDoctrine()->getRepository(Home::class);
-		  $repository = $this->getDoctrine()->getRepository(Trick::class);
-
-      return $this->render('trick/index.html.twig', [
+      $repository = $this->getDoctrine()->getRepository(Trick::class);
+      
+      $output = $this->render('trick/index.html.twig', [
 			  'listAdverts'=> $listAdverts = $repository->findAll(),
         'home'=> $homeAdverts = $repositoryHome->find(1),
       ]);
-      
+
+      if ($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+        $output = $this->redirectToRoute('trick.indexUser'); 
+      }
+       return $output;
     }
 
     /**
 	   * @Route("/homeUser", name="trick.indexUser")
-     *
+     * @IsGranted("IS_AUTHENTICATED_FULLY")
+     * 
      * Affiche la page d'accueil du site pour un user connecté
-     * Prend l'objet Request en argument et utilise les entités Home et Trick
-     * Si l'objet Request contient des variables POST, l'accueil est mis à jour.
      */
     public function indexUser(Request $request)
     {
@@ -86,11 +87,9 @@ class TrickController extends AbstractController
 
   /**
    * @Route("/new/", name="trick.new")
-   *
+   * @IsGranted("IS_AUTHENTICATED_FULLY")
+   * 
    * Affiche le formulaire de création d'un trick
-   * Prend l'objet request en argument
-   * Si Request contient des données en POST, le trick est ajouté à la BDD
-   * Le render est différent en fonction de l'objet Request
    */
     public function new(Request $request)
     {
@@ -115,7 +114,6 @@ class TrickController extends AbstractController
 
       } else {
 
-      // Si le formulaire n'a pas été posté. Appelle le formulaire
       return $this->render('trick/showUserCreate.html.twig', [
         'form' => $form->createview() ,
       ]);
@@ -126,8 +124,6 @@ class TrickController extends AbstractController
    * @Route("/view/{$titre}", name="trick.show")
    *
    * Affiche un trick en particulier et l'espace de discussion général
-   * Prend un String en argument qui correspond au titre du trick
-   * Utilise les entités Trick et Comment
    */
 	public function show(String $titre)
   {
@@ -143,11 +139,9 @@ class TrickController extends AbstractController
 
   /**
    * @Route("/show/{$titre}", name="trick.showUser")
+   * @IsGranted("IS_AUTHENTICATED_FULLY")
    *
    * Affiche un trick particulier et l'espace de discussion général pour un user connecté
-   * Prend un String en argument qui correspond au titre du trick
-   * Utilise les entités Trick et Comment
-   * Utilise le formulaire HomeType
    */
   public function showUser(String $titre, Request $request)
   {
@@ -168,11 +162,9 @@ class TrickController extends AbstractController
 
   /**
    * @Route("/update/{$titre}", name="trick.update")
+   * @IsGranted("IS_AUTHENTICATED_FULLY")
    *
    * Affiche le formulaire de mise à jour d'un trick
-   * Prend un String en argument pour le titre et l'objet Request
-   * Si l'objet Request contient des variables POST, l'accueil est mis à jour.
-   * Utilise l'entité Trick et le formulaire UpdateTrickType
    */
   public function update(String $titre, Request $request)
   {
@@ -210,10 +202,9 @@ class TrickController extends AbstractController
 
   /**
    * @Route("/delete/{$titre}", name="trick.delete")
+   * @IsGranted("IS_AUTHENTICATED_FULLY")
    *
-   * Permet la suppression d'un trick de la BDD
-   * Prend un string en argument pour le titre
-   * Utilise l'entité Trick
+   * Supprime un trick de la BDD
    */
   public function delete(String $titre)
   {

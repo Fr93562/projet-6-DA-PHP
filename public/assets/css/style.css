@@ -42,7 +42,7 @@ header
 
 #navBloc
 {
-    width: 600px;
+    width: 450px;
 }
 
 nav ul
@@ -54,6 +54,14 @@ nav ul
 nav ul li
 {
     list-style: none;
+}
+
+#navLogin
+{
+    padding: 5px 10px 5px 10px;
+
+    border: solid 1px white;
+    border-radius: 5px;
 }
 
 h1
@@ -73,6 +81,12 @@ h1, li a
 li a:hover
 {
     color:cornflowerblue;
+    transition-duration: 250ms;
+}
+
+#navLogin:hover
+{
+    border: solid 1px cornflowerblue;
     transition-duration: 250ms;
 }
 
@@ -358,12 +372,57 @@ textarea
     border-radius: 20px;
 }
 
+#formContenair
+{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    height: 75%;
+}
+
+#formTitle
+{
+    text-align: center;
+    color: black;
+
+    top: 0%;
+}
+
+#formContenair form
+{
+    height: 200px;
+    margin-left: 15px;
+
+    display: flex;
+    justify-content: space-between;
+    flex-direction: column;
+}
+
+#formContenair form input, #user_register div input,  #update_user div input
+{
+    width: 280px;
+    position: relative;
+    left: 35px;
+
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.8) !important;
+
+    text-align: center;
+}
+
+#user_register div label, #update_user div label
+{
+    display: none;
+}
+
 #user_login , #user_register
 {
     width: auto;
     height: 300px;
 
-    margin-left: 25px;
+    margin-left: 0px;
 
     display: flex;
     justify-content: space-around;
@@ -375,15 +434,59 @@ textarea
     margin-left: 20px;
 }
 
-#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button
+#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button, #formContenair form button, #update_user button
 {
     position: relative;
-    left: 50%;
+    left: 33%;
+    width: auto;
 
     background-color: rgba(255, 255, 255, 0.8);
     padding: 15px 15px 15px 15px;
     border-radius: 10px;
     border-width: 1px;
+}
+
+.monCompteh1 
+{
+    top: -20% !important;
+}
+.monCompteh1v2
+{
+    top: -10% !important;
+}
+
+#enteteUser div ul
+{
+    padding-left: 0px;
+}
+
+#enteteUser div ul li, #update_user div
+{
+    list-style: none;
+    margin-top: 35px;
+    margin-bottom: 35px;
+    text-align: center;
+}
+
+#update_user div input, #update_user div button
+{
+    left: 0%;
+}
+
+
+#enteteUser div ul li a
+{
+    color: black;
+    padding: 5px 10px 5px 10px;
+    text-align: center;
+
+    border: solid 1px black;
+    border-radius: 5px;
+}
+
+#formContenair form button
+{
+    width: 130px;
 }
 
 .lienUser 

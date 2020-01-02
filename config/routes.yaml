@@ -24,15 +24,15 @@ trick_showUserDelete:
 
 # user path
 user_update:
-    path: /account/{username}/modify
+    path: /account/modify
     controller: App\Controller\UserController::update
 
 user_delete:
-    path: /account/{username}/unsubscribe
+    path: /account/unsubscribe
     controller: App\Controller\UserController::delete
 
 # coment path
 
 comment_create:
-    path: /show/{titre}/post
+    path: /show/post
     controller: App\Controller\CommentController::create

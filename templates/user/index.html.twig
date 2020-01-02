@@ -5,11 +5,15 @@
 <section>
     <div id="enteteAccount">
         <div id="enteteUser">
+            <h1 id="formTitle" class="monCompteh1">Mon compte</h1>
 
-            {{ form(form) }}
-			<a class="lienUser" id="lienUserRegister" href="/account/register"> Crée un compte? </a> 
-            <a class="lienUser" id="lienUserForgotPassword" href="/account/register"> Mot de passe oublié? </a> 
-
+            <div>
+                <ul>
+                   	<li> <a href="{{ path('user.update') }}"> Mettre à jour mes données </a> </li>
+                   	<li> <a href="{{ path('app_logout') }}"> Me déconnecter </a></li>
+                   	<li> <a id="navLogin" href="{{ path('user.delete') }}"> Supprimer mon compte </a></li>
+                </ul>
+            </div>
         </div>
     </div>  
 </section>

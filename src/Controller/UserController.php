@@ -4,67 +4,44 @@ namespace App\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\Routing\Annotation\Route;
-
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\IsGranted;
+use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Http\Authentication\AuthenticationUtils;
 use App\Entity\User;
-
 use App\Form\UserLoginType;
 use App\Form\UpdateUserType;
 use App\Form\UserRegisterType;
 
-use Symfony\Component\HttpFoundation\Request;
-
-
+/**
+ * Gère les paths de l'entité User
+ */
 class UserController extends AbstractController
 {
 
   /**
    * @Route("/account/", name="user.index")
    *
-   * Affiche la page d'accueil des users
+   * Affiche la page d'accueil de l'User s'il est identifié. Sinon, affiche la page de connexion
    */
     public function index()
     {
-        $form = $this->createForm(UserLoginType::class);
+        $output = $this->redirectToRoute('app_login');
 
-        return $this->render('user/index.html.twig', [
-            'form' => $form->createview() ,
-            'controller_name' => 'UserController',
-        ]);
+        if ($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
+
+            $form = $this->createForm(UserLoginType::class);
+            return $this->render('user/index.html.twig', [
+                'form' => $form->createview() ,
+                'controller_name' => 'UserController',
+            ]);
+        }
+        return $output;
     }
-
- /**
-  * @Route("/account/login", name="user.login")
-  *
-  * Sert à la connection des users
-  */
-	public function login()
-    {
-
-		$form = $this->createForm(UserLoginType::class);
-
-        return $this->render('user/login.html.twig', [
-			      'form' => $form->createview() ,
-            'controller_name' => 'UserController',
-        ]);
-    }
-
-/**
- * @Route("/account/logout", name="user.logout")
- *
- * Sert à déconnecter l'user du site
- */
-	public function logout()
-    {
-        return $this->render('user/logout.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
-    }
-
 
 /**
  * @Route("/account/register", name="user.new")
  *
- * Sert à créer un nouvel utilisateur qui sera rajouté en base de données
+ * Crée un nouvel utilisateur qui sera rajouté en base de données
  */
 	public function new(Request $request)
     {
@@ -93,14 +70,17 @@ class UserController extends AbstractController
 
 
 /**
- * @Route("/account/{$username}/modify", name="user.update")
+ * @Route("/account/modify", name="user.update")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  *
- * Sert à mettre à jour les données de l'user
+ * Mets à jour les données de l'user
  */
-	public function update(String $username, Request $request)
+	public function update(Request $request, AuthenticationUtils $authenticationUtils)
     {
 
     $repository = $this->getDoctrine()->getRepository(User::class);
+    $error = $authenticationUtils->getLastAuthenticationError();
+    $username = $authenticationUtils->getLastUsername();
 
 		$form = $this->createForm(UpdateUserType::class,
            $repository->findOneByUsername($username));
@@ -124,27 +104,30 @@ class UserController extends AbstractController
     }
 
     return $this->render('user/updateUser.html.twig', [
-			      'form' => $form->createview() ,
+			'form' => $form->createview() ,
             'controller_name' => 'UserController',
         ]);
     }
 
 /**
- * @Route("/account/{$username}/unsubscribe", name="user.delete")
+ * @Route("/account/unsubscribe", name="user.delete")
+ * @IsGranted("IS_AUTHENTICATED_FULLY")
  *
- * Sert à la suppression d'un user de la base de données
+ * Supprime un user de la base de données
  */
-	public function delete(String $username)
+	public function delete(AuthenticationUtils $authenticationUtils)
     {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $username = $authenticationUtils->getLastUsername();    
 
-      $repository = $this->getDoctrine()->getRepository(User::class);
-      $repositorySupress = $this->getDoctrine()->getRepository(User::class);
+        $repository = $this->getDoctrine()->getRepository(User::class);
+        $repositorySupress = $this->getDoctrine()->getRepository(User::class);
 
-      $user = $repositorySupress->findOneByUsername($username);
+        $user = $repositorySupress->findOneByUsername($username);
 
-      $em = $this->getDoctrine()->getManager();
-      $em->remove($user);
-      $em->flush();
+         $em = $this->getDoctrine()->getManager();
+        $em->remove($user);
+        $em->flush();
 
       return $this->render('user/deleteUser.html.twig', [
             'controller_name' => 'UserController',

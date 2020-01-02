@@ -45,11 +45,17 @@ Les users connectés auront plus de fonctionnalités afin de gérer les tricks, 
 
 ### Page d'accueil:
 
+
+
+![hackList](https://image.noelshack.com/fichiers/2020/01/4/1577976157-accueil.jpg)
+
 - La page d'accueil se décompose en 3 parties: le menu de navigation, l'image avec sa phrase d'accroche et la liste des tricks à consulter.
 
 - Un user connecté a également la possibilité de modifier la phrase d'accroche. Un menu apparait au niveau des tricks afin de proposer un lien pour directement modifier ou supprimer un trick.
 
 ### Page d'un trick:
+
+![hackList](https://image.noelshack.com/fichiers/2020/01/4/1577976345-connexion.jpg)
 
 - La page d'un trick donne plusieurs informations sur celui-ci (nom, vidéo, image, date, description..). Le fil de discussion apparait également en bas de la page.
 
@@ -57,6 +63,8 @@ Les users connectés auront plus de fonctionnalités afin de gérer les tricks, 
 - Un user connecté a également la possibilité de participer au fil de discussion. Un menu apparait également pour proposer des liens pour directement modifier ou supprimer le trick en question.
 
 ### Page de connexion:
+
+![hackList](https://image.noelshack.com/fichiers/2020/01/4/1577976345-connexion.jpg)
 
 - La page de connexion donne la possibilité à un visiteur de se connecter au site. Un lien est présent sur la page pour ceux qui souhaitent créer un compte ou encore pour ceux qui ont oublié leur mot de passe.
 
@@ -67,7 +75,7 @@ Les users connectés auront plus de fonctionnalités afin de gérer les tricks, 
 
 Ce projet est construit autour de 3 entités Symfony.
 
-### User :
+### User / Security:
 
 Cette entité gère les utilisateurs du projet. Plusieurs méthodes sont associés à cet élément.
 
@@ -77,18 +85,29 @@ Create(), Read(), Update(), Delete():
 
 Ses méthodes gèrent le CRUD des users et se situent au niveau de userController. Chacune de ses fonctions ont une vue associée (S'inscrire au site, récupérer l'info pour se connecter, mettre à jour son compte et le supprimer).
 
+
 -----------------
 
 Login(), Logout():
 
 Ses méthodes gèrent la connection de l'utilisateur au site. Chacune de ses fonctions ont une vue associée (page de connexion et bouton de déconnection). La connexion agit sur les variables de session et la déconnection les supprime.
 
------------------
+#### Exemple de code:
 
-Auth():
+```php
+    /**
+     * @Route("/account/login", name="app_login")
+     * 
+     * Affiche la page de connexion de l'User
+     */
+     public function login(AuthenticationUtils $authenticationUtils): Response
+    {
+        $error = $authenticationUtils->getLastAuthenticationError();
+        $lastUsername = $authenticationUtils->getLastUsername();
 
-Cette méthode gère l'authentification et donne certains droits à l'utilisateur connecté.
-
+        return $this->render('security/login.html.twig', ['last_username' => $lastUsername, 'error' => $error]);
+    }
+```
 
 ### Trick:
 
@@ -100,6 +119,28 @@ Create(), Read(), Update(), Delete():
 
 Ses méthodes gèrent le CRUD des tricks et se situent au niveau de trickController. Chacune de ses fonctions ont une vue associée (Rajouter un trick, les consulter, les mettre à jour ou encore en supprimer un).
 
+#### Exemple de code:
+
+```php 
+
+  /**
+   * @Route("/view/{$titre}", name="trick.show")
+   *
+   * Affiche un trick en particulier et l'espace de discussion général
+   */
+	public function show(String $titre)
+  {
+
+		$repository = $this->getDoctrine()->getRepository(Trick::class);
+		$repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
+
+    return $this->render('trick/show.html.twig', [
+			'advert'=> $listAdvert = $repository->findOneByTitre($titre),
+			'listComments'=> $listComments = $repositoryComments->findAll(),
+		]);
+  }
+
+  ```
 
 ### Comment:
 
@@ -116,6 +157,48 @@ Cette méthode gère la création d'un commentaire. Elle prends en argument l'us
 Remarque:
 
 - La suppression d'un user de la base de données entraine la suppression des commentaires qui lui sont associés.
+
+#### Exemple de code:
+
+```php
+...
+    private $id;
+
+    /**
+     * @ORM\ManyToOne(targetEntity="App\Entity\User", inversedBy="comments")
+     * @ORM\JoinColumn(nullable=false)
+     */
+    private $username;
+
+    /**
+     * @ORM\Column(type="text")
+     */
+    private $texte;
+
+    public function getId(): ?int
+    {
+        return $this->id;
+    }
+...
+
+```
+
+### Fonctionnement de l'authentification:
+
+Cette application propose deux types d'authentification: anonyme et user authentifié.
+
+L'accès est ainsi restreint en fonction du statut de l'utilisateur.
+
+#### Anonyme:
+
+- Page d'acceuil
+- Page de Tricks (consultation uniquement + vue sur la discussion générale)
+- Page de connexion
+
+#### User authentifié
+- Page d'accueil
+- Page de Tricks (CRUD + participation à la discussion générale)
+- Page du compte utilisateur (Modification des données, déconnexion et suppression du compte)
 
 
 -----------------

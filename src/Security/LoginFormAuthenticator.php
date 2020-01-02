@@ -44,6 +44,8 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getCredentials(Request $request)
     {
+        echo("entrée dans getCredentials");
+
         $credentials = [
             'username' => $request->request->get('username'),
             'password' => $request->request->get('password'),
@@ -59,6 +61,9 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
+        echo("entrée dans getUser");
+        var_dump($credentials);
+
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
             throw new InvalidCsrfTokenException();
@@ -76,7 +81,19 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
+        /*
+        echo("entrée dans checkcrédentials");
+        var_dump($user->getPassword());
+        var_dump($user->getUsername());
         return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
+        */
+        $output = false;
+
+        if( $user->getPassword() == $credentials['password']) {
+
+            $output = true;
+        }
+        return $output;
     }
 
     public function onAuthenticationSuccess(Request $request, TokenInterface $token, $providerKey)
@@ -85,8 +102,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
             return new RedirectResponse($targetPath);
         }
 
-        // For example : return new RedirectResponse($this->urlGenerator->generate('some_route'));
-        throw new \Exception('TODO: provide a valid redirect inside '.__FILE__);
+        return new RedirectResponse($this->urlGenerator->generate('trick.index'));
     }
 
     protected function getLoginUrl()

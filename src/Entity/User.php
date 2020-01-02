@@ -132,11 +132,12 @@ class User implements UserInterface
     /**
      * @return Collection|Comment[]
      */
+    /*
     public function getComments(): Collection
     {
         return $this->comments;
     }
-
+    */
     public function addComment(Comment $comment): self
     {
         if (!$this->comments->contains($comment)) {
