@@ -24,7 +24,7 @@ class HomeType extends AbstractType
 
       $builder
               ->add('contenu',           TextType::class)
-			        ->add('Mettre à jour',      SubmitType::class)
+			        ->add('Modifier',      SubmitType::class)
         ;
     }
 
@@ -32,9 +32,6 @@ class HomeType extends AbstractType
     {
         $resolver->setDefaults([
           'attr' => ['id' => 'formHome']
-
-
-            // Configure your form options here
         ]);
     }
 }

@@ -125,7 +125,7 @@ class UserController extends AbstractController
 
         $user = $repositorySupress->findOneByUsername($username);
 
-         $em = $this->getDoctrine()->getManager();
+        $em = $this->getDoctrine()->getManager();
         $em->remove($user);
         $em->flush();
 

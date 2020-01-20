@@ -103,7 +103,7 @@ li a:hover
 }
 #enteteLien
 {
-    width: 400px;
+    width: 480px;
     height: 150px;
 
     position: relative;
@@ -271,6 +271,53 @@ textarea
     text-align: left;
 }
 
+#home div label 
+{
+    position: relative;
+    left: 35%;
+}
+
+#home_Modifier
+{
+    top: 14px;
+}
+
+#sectionCreateTrick
+{
+    width: 100%;
+    height: 100px;
+
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+}
+#divCreateTrick
+{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+#divCreateTrick a
+{
+    text-align: center;
+    margin: 0px;
+}
+
+#create_trick_dateCreation_month, #create_trick_dateCreation_day, #create_trick_dateCreation_year, #create_trick_dateMiseAJour_month, #create_trick_dateMiseAJour_day, #create_trick_dateMiseAJour_year, #update_trick_dateCreation_month, #update_trick_dateCreation_day, #update_trick_dateCreation_year, #update_trick_dateMiseAJour_month, #update_trick_dateMiseAJour_day, #update_trick_dateMiseAJour_year
+{
+    width: 90px;
+    position: relative;
+    left: 55px;
+
+    padding: 10px 10px 10px 10px;
+    border-radius: 10px;
+
+    background-color: rgba(255, 255, 255, 0.8) !important;
+
+    text-align: center;
+}
+
 /* Trick Show */
 #enteteShowTrick
 {
@@ -398,7 +445,7 @@ textarea
     flex-direction: column;
 }
 
-#formContenair form input, #user_register div input,  #update_user div input
+#formContenair form input, #user_register div input,  #update_user div input, #home div input, #create_trick div input, #update_trick div input
 {
     width: 280px;
     position: relative;
@@ -411,6 +458,48 @@ textarea
 
     text-align: center;
 }
+
+#create_trick_titre, #update_trick_titre
+{
+    left: 0px !important;
+    margin-left: 10px !important;
+}
+
+#create_trick_lienVideo, #update_trick_lienVideo
+{
+    left: 25px !important;
+}
+
+#create_trick_lienImage, #cupdate_trick_lienImage
+{
+    left: 25px !important;
+}
+
+#create_trick_texte, #update_trick_texte
+{
+    width: 280px;
+    height: 100px;
+    position: relative;
+    right: 15px;
+    
+    padding: 10px 10px 10px 10px;
+    margin-top: 10px;
+    border-radius: 10px;
+    
+    background-color: rgba(255, 255, 255, 0.8) !important;
+    
+}
+
+#create_trick div label, #update_trick div label
+{
+    width: 20px;
+}
+
+#home div input
+{
+    left: 0px !important;
+}
+
 
 #user_register div label, #update_user div label
 {
@@ -434,16 +523,20 @@ textarea
     margin-left: 20px;
 }
 
-#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button, #formContenair form button, #update_user button
+#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button, #formContenair form button, #update_user button, #home div button
 {
     position: relative;
-    left: 33%;
     width: auto;
 
     background-color: rgba(255, 255, 255, 0.8);
     padding: 15px 15px 15px 15px;
     border-radius: 10px;
     border-width: 1px;
+}
+
+#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button, #formContenair form button, #update_user button
+{
+    left: 33%;
 }
 
 .monCompteh1 
@@ -499,7 +592,7 @@ textarea
 }
 .lienUser:hover
 {
-    color:cornflowerblue;
+    color:#6495ed;
     transition-duration: 250ms;
 }
 #lienUserRegister
@@ -536,6 +629,8 @@ textarea
   display: flex;
   flex-direction: row;
   justify-content: space-between;
+
+  width: 450px;
 
   background-color: rgba(0,0,0,0.7);
   padding: 20px 15px 20px 15px;
@@ -606,9 +701,9 @@ textarea
 #containerTrick
 {
     width: 400px;
-    height: 500px;
+    height: 600px;
     position: relative;
-    top: 15%;
+    top: 10%;
     display: flex;
     justify-content: center;
     flex-direction: column;
@@ -756,4 +851,215 @@ footer div .fab:hover
 {
     color:cornflowerblue;
     transition-duration: 250ms;
+}
+
+/* Flèche vers le haut */
+#flecheHaute
+{
+    position: relative;
+    left: 93%;
+    color: black;
+
+    background-color: #6495ed;
+    opacity: 0.8;
+    padding: 15px 15px 15px 15px;
+    border-radius: 10px;
+    border-width: 1px;
+
+    margin-bottom: 10px;
+}
+
+/* Flèche vers le bas */
+#flecheBasse
+{
+    position: relative;
+    left: 93%;
+    bottom: 75px;
+    color: black;
+
+    background-color: #6495ed;
+    opacity: 0.8;
+    padding: 15px 15px 15px 15px;
+    border-radius: 10px;
+    border-width: 1px;
+
+    margin-bottom: 10px;
+}
+
+
+/* Mediaqueries */
+
+@media screen and (min-width: 721px) and (max-width: 1024px) {
+
+    #entete, #enteteShowTrick, #enteteAccount, #enteteCreateUser
+    {
+        background-size: cover;
+    }
+
+    #icon
+    {
+        display: none;
+    }
+
+
+  }
+
+@media screen and (min-width: 550px) and (max-width: 720px) {
+
+    #entete, #enteteShowTrick, #enteteAccount, #enteteCreateUser
+    {
+        background-size: cover;
+    }
+
+    #icon
+    {
+        display: none;
+    }
+
+    header
+    {
+        height: 100px;
+        flex-direction: column;
+    }
+    
+    #navTitre
+    {
+        justify-content: center;
+    }
+    #navBloc
+    {
+        width: 100%;
+    }
+}
+
+@media screen and (min-width: 380px) and (max-width: 549px) {
+
+    #entete, #enteteShowTrick, #enteteAccount, #enteteCreateUser
+    {
+        background-size: cover;
+    }
+
+    #icon
+    {
+        display: none;
+    }
+
+    header
+    {
+        height: 100px;
+        flex-direction: column;
+    }
+    
+    #navTitre
+    {
+        justify-content: center;
+    }
+    #navBloc
+    {
+        width: 100%;
+    }
+
+    #home
+    {
+        width: auto;
+        flex-direction: column;
+    }
+
+    #home div 
+    {
+        display: flex;
+        justify-content: center;
+    }
+
+    #home div label
+    {
+        display: none;
+    }
+
+    #navBloc nav ul 
+    {
+        padding-left: 0px;
+    }
+    .contenairPost
+    {
+        margin: 0px 0px 15px 0px;
+    }
+    .contenu, .auteur
+    {
+        padding-left: 10px;
+    }
+
+    
+}
+
+@media screen and (max-width: 379px) {
+
+    #entete, #enteteShowTrick, #enteteAccount, #enteteCreateUser
+    {
+        background-size: cover;
+    }
+
+    #icon
+    {
+        display: none;
+    }
+
+    header
+    {
+        height: 100px;
+        flex-direction: column;
+    }
+    
+    #navTitre
+    {
+        justify-content: center;
+    }
+    #navBloc
+    {
+        width: 100%;
+    }
+
+    #home
+    {
+        width: auto;
+        flex-direction: column;
+    }
+
+    #home div 
+    {
+        display: flex;
+        justify-content: center;
+    }
+
+    #home div label
+    {
+        display: none;
+    }
+
+    #navBloc nav ul 
+    {
+        padding-left: 0px;
+    }
+    .contenairPost
+    {
+        margin: 0px 0px 15px 0px;
+    }
+    .contenu, .auteur
+    {
+        padding-left: 10px;
+    }
+
+    .customDivIcon
+    {
+        left: 50%;
+    }
+
+    #update_trick div, #create_trick div
+    {
+        margin-left: 0px;
+    }
+    #update_trick_lienVideo, #update_trick_lienImage,  #create_trick_lienVideo, #create_trick_lienImage
+    {
+        margin-left: 0px;
+    }
 }

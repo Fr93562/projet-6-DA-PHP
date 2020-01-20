@@ -29,7 +29,6 @@ class CommentController extends AbstractController
 
     $request = Request::createFromGlobals();
     $titre = $request->query->get('titre');
-
     $form = $this->createForm(CommentType::class);
 
     if ($request -> isMethod('POST')) {
@@ -53,7 +52,6 @@ class CommentController extends AbstractController
         $em->flush();
       }
     }
-
     return $this->redirectToRoute('trick.showUser');
   }
 }

@@ -6,7 +6,6 @@ namespace Service\Tools;
  * Classe utilisée par TrickController, l'entité User et Trick
  * Permet de slug ou déslug l'élément passé en en argumenr (String)
  */
-/*
 class Slugger
 {
 

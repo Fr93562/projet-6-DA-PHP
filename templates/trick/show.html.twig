@@ -11,19 +11,23 @@
       <div>
         <h4 class="titreShow">{{ advert.titre }}</h4>
         <p class="dateShow"> {{ advert.dateCreation|date("m/d/Y")}}
+
           {% if advert.dateMiseAJour != null %} et mis à jour le
         {{ advert.dateMiseAJour|date("m/d/Y")}} {% endif %}.</p>
+
         <p class="texteShow">{{ advert.texte[1:40] }}</p>
     </div>
     </div>
   </div>
   <aside>
     <div id="listComment">
+
   	  {% for	comment in listComments %}
         <div class="contenairComment">
           <h4 class="commentPseudo">{{ comment.username.username }}</h4>
           <p class="commentTexte">{{ comment.texte }}</p>
 			  </div>
+        
 		  {% endfor %}
     </div>
   </aside>

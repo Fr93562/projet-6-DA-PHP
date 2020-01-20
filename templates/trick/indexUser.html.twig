@@ -10,6 +10,12 @@
             </div>
         </div>
     </div>
+    	<a href="#containerArticle"><i id="flecheBasse" class="fas fa-chevron-down"></i> </a>
+</section>
+<section id="sectionCreateTrick">
+    <div id="divCreateTrick">
+         <a class="customLien" href="/new/"> Créer un trick </a>
+    </div>
 </section>
 <section>
 	<div id="containerArticle">
@@ -31,5 +37,9 @@
 		{% endfor %}
     </div>
 </section>
+
+{% if listAdverts|length > 8 %}
+ 	<a href="#navTitre"><i id="flecheHaute" class="fas fa-chevron-up"></i> </a>
+{% endif %}
 
 {% endblock %}
