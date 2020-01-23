@@ -61,8 +61,6 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function getUser($credentials, UserProviderInterface $userProvider)
     {
-        echo("entrée dans getUser");
-        var_dump($credentials);
 
         $token = new CsrfToken('authenticate', $credentials['csrf_token']);
         if (!$this->csrfTokenManager->isTokenValid($token)) {
@@ -81,12 +79,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
 
     public function checkCredentials($credentials, UserInterface $user)
     {
-        /*
-        echo("entrée dans checkcrédentials");
-        var_dump($user->getPassword());
-        var_dump($user->getUsername());
-        return $this->passwordEncoder->isPasswordValid($user, $credentials['password']);
-        */
+
         $output = false;
 
         if ($user->getPassword() == $credentials['password']) {
