@@ -1,4 +1,4 @@
-# Site communautaire de Snowtricks
+# Site communautaire de Snowtrick
 
 
 
