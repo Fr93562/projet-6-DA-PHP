@@ -89,8 +89,7 @@ class LoginFormAuthenticator extends AbstractFormLoginAuthenticator
         */
         $output = false;
 
-        if( $user->getPassword() == $credentials['password']) {
-
+        if ($user->getPassword() == $credentials['password']) {
             $output = true;
         }
         return $output;

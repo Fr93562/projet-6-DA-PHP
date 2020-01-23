@@ -492,7 +492,8 @@ textarea
 
 #create_trick div label, #update_trick div label
 {
-    width: 20px;
+    width: 100%;
+    text-align: center;
 }
 
 #home div input
@@ -666,6 +667,8 @@ textarea
   transition-duration: 250ms;
 }
 
+
+
 /* User create */
 #enteteCreateUser
 {
@@ -736,6 +739,7 @@ textarea
 {
     margin-left: 20px;
 }
+
 
 
 

@@ -11,7 +11,6 @@ use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\Form\Extension\Core\Type\TextType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 /*
  * Formulaire d'authenficiation des users
  * Utilisé dans TrickController
@@ -21,9 +20,9 @@ class UserLoginType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-                ->add('Pseudo',              TextType::class)
-			    ->add('Mot_de_passe',         TextType::class)
-			    ->add('Me connecter',     SubmitType::class)
+                ->add('Pseudo', TextType::class)
+                ->add('Mot_de_passe', TextType::class)
+                ->add('Me connecter', SubmitType::class)
         ;
     }
 

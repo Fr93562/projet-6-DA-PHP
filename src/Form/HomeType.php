@@ -11,7 +11,6 @@ use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
 use App\Controller\TrickController;
 
-
 /*
  * Formulaire de mise à jour de la page d'accueil
  * Utilisé dans TrickController
@@ -20,11 +19,11 @@ class HomeType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-      $content = ['contenu'];
+        $content = ['contenu'];
 
-      $builder
-              ->add('contenu',           TextType::class)
-			        ->add('Modifier',      SubmitType::class)
+        $builder
+              ->add('contenu', TextType::class)
+                    ->add('Modifier', SubmitType::class)
         ;
     }
 

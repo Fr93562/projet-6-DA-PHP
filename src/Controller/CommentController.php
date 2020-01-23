@@ -24,34 +24,31 @@ class CommentController extends AbstractController
 
   * Crée un nouveau commentaire
   */
-  public function  create(Request $request, AuthenticationUtils $authenticationUtils)
-  {
+    public function create(Request $request, AuthenticationUtils $authenticationUtils)
+    {
+        $request = Request::createFromGlobals();
+        $titre = $request->query->get('titre');
+        $form = $this->createForm(CommentType::class);
 
-    $request = Request::createFromGlobals();
-    $titre = $request->query->get('titre');
-    $form = $this->createForm(CommentType::class);
+        if ($request -> isMethod('POST')) {
+            $form-> handleRequest($request);
 
-    if ($request -> isMethod('POST')) {
+            if ($form->isSubmitted() &&  $form->isValid()) {
+                $error = $authenticationUtils->getLastAuthenticationError();
+                $lastUsername = $authenticationUtils->getLastUsername();
 
-      $form-> handleRequest($request);
+                $repositoryUser = $this->getDoctrine()->getRepository(User::class);
+                $userTest = $repositoryUser->findOneByUsername($lastUsername);
 
-      if ( $form->isSubmitted() &&  $form->isValid()) {
-
-        $error = $authenticationUtils->getLastAuthenticationError();
-        $lastUsername = $authenticationUtils->getLastUsername();
-
-        $repositoryUser = $this->getDoctrine()->getRepository(User::class);
-        $userTest = $repositoryUser->findOneByUsername($lastUsername);
-
-        $comment = new Comment();
-        $comment -> setUsername($userTest);
-        $comment -> setTexte ($form['texte'] -> getData());
+                $comment = new Comment();
+                $comment -> setUsername($userTest);
+                $comment -> setTexte($form['texte'] -> getData());
     
-        $em = $this->getDoctrine()->getManager();
-        $em->persist($comment);
-        $em->flush();
-      }
+                $em = $this->getDoctrine()->getManager();
+                $em->persist($comment);
+                $em->flush();
+            }
+        }
+        return $this->redirectToRoute('trick.showUser');
     }
-    return $this->redirectToRoute('trick.showUser');
-  }
 }

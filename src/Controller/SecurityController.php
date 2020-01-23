@@ -14,10 +14,10 @@ class SecurityController extends AbstractController
 {
     /**
      * @Route("/account/login", name="app_login")
-     * 
+     *
      * Affiche la page de connexion de l'User
      */
-     public function login(AuthenticationUtils $authenticationUtils): Response
+    public function login(AuthenticationUtils $authenticationUtils): Response
     {
         $error = $authenticationUtils->getLastAuthenticationError();
         $lastUsername = $authenticationUtils->getLastUsername();
@@ -27,7 +27,7 @@ class SecurityController extends AbstractController
 
     /**
      * @Route("/account/logout", name="app_logout")
-     * 
+     *
      * Déconnecte l'User
      */
     public function logout()

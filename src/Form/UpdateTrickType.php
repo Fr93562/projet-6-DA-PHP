@@ -23,16 +23,16 @@ class UpdateTrickType extends AbstractType
 {
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
-      $content = ['titre'];
+        $content = ['titre'];
 
         $builder
-            ->add('titre',                 TextType::class)
-            ->add('lienVideo',             TextType::class)
-            ->add('lienImage',             TextType::class)
-            ->add('texte',                 TextareaType::class)
-            ->add('dateCreation',          DateType::class)
-            ->add('dateMiseAJour',         DateType::class)
-			      ->add('Modifier ce trick',     SubmitType::class)
+            ->add('titre', TextType::class)
+            ->add('lienVideo', TextType::class)
+            ->add('lienImage', TextType::class)
+            ->add('texte', TextareaType::class)
+            ->add('dateCreation', DateType::class)
+            ->add('dateMiseAJour', DateType::class)
+                  ->add('Modifier ce trick', SubmitType::class)
         ;
     }
 

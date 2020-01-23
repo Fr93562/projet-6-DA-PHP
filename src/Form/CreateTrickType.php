@@ -13,7 +13,6 @@ use Symfony\Component\Form\Extension\Core\Type\TextareaType;
 use Symfony\Component\Form\Extension\Core\Type\DateType;
 use Symfony\Component\Form\Extension\Core\Type\SubmitType;
 
-
 /*
  * Formulaire de créations de tricks
  * Utilisé dans TrickController
@@ -23,13 +22,13 @@ class CreateTrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre',                  TextType::class)
-            ->add('lienVideo',              TextType::class)
-            ->add('lienImage',              TextType::class)
-            ->add('texte',                  TextareaType::class)
-            ->add('dateCreation',           DateType::class)
-            ->add('dateMiseAJour',          DateType::class)
-			      ->add('Rajouter un trick',      SubmitType::class)
+            ->add('titre', TextType::class)
+            ->add('lienVideo', TextType::class)
+            ->add('lienImage', TextType::class)
+            ->add('texte', TextareaType::class)
+            ->add('dateCreation', DateType::class)
+            ->add('dateMiseAJour', DateType::class)
+                  ->add('Rajouter un trick', SubmitType::class)
         ;
     }
 

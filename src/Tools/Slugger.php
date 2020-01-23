@@ -8,18 +8,21 @@ namespace Service\Tools;
  */
 class Slugger
 {
-
-  public static function slugify($string)
-  {
-      return preg_replace(
-          '/[^a-z0-9]/', '-', strtolower(trim(strip_tags($string)))
+    public static function slugify($string)
+    {
+        return preg_replace(
+          '/[^a-z0-9]/',
+          '-',
+          strtolower(trim(strip_tags($string)))
       );
-  }
+    }
 
-  public static function noSlugify(String $string)
-  {
-      return preg_replace(
-          '/-/', ' ', $string
-       );
-  }
+    public static function noSlugify(String $string)
+    {
+        return preg_replace(
+          '/-/',
+          ' ',
+          $string
+      );
+    }
 }
