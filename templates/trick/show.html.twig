@@ -7,6 +7,19 @@
 </section>
 <section id="show">
   <div id="containerShow">
+        <div id="mediaTrick">
+        {% if advert.lienImage != null %}
+          <div id="imgShowTrick"> 
+            <img src="{{ advert.lienImage }}" alt="Photo de montagne" title="C'est beau les Alpes quand même !" />
+          </div>
+        {% endif %}
+
+        {% if advert.lienVideo != null %}
+          <div id="videoShowTrick" >
+            <iframe width="550" height="310" src="{{ advert.lienVideo }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        {% endif %}
+      </div>
     <div class="contenairDivShow">
       <div>
         <h4 class="titreShow">{{ advert.titre }}</h4>

@@ -1,5 +1,11 @@
 # config/routes.yaml
 
+# coment path
+
+comment_create:
+    path: /post/
+    controller: App\Controller\CommentController::create
+
 # home path
 home:
     path: /
@@ -31,8 +37,3 @@ user_delete:
     path: /account/unsubscribe
     controller: App\Controller\UserController::delete
 
-# coment path
-
-comment_create:
-    path: /show/post
-    controller: App\Controller\CommentController::create

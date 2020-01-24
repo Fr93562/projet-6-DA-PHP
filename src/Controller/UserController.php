@@ -125,8 +125,6 @@ class UserController extends AbstractController
         $em->remove($user);
         $em->flush();
 
-        return $this->render('user/deleteUser.html.twig', [
-            'controller_name' => 'UserController',
-        ]);
+        return $this->redirectToRoute('trick.index');
     }
 }

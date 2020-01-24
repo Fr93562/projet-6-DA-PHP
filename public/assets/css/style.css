@@ -166,6 +166,29 @@ li a:hover
 {
     text-align: center;
 }
+#mediaTrick
+{
+    display: flex;
+    justify-content: space-around;
+    flex-direction: row;
+    flex-wrap: wrap;
+}
+
+
+#imgShowTrick
+{
+    width: 550px;
+}
+#imgShowTrick img
+{
+    width: 550px;
+}
+
+
+#videoShowTrick
+{
+    width: 550px;
+}
 
 /* Présentation des tricks - index */
 
@@ -208,7 +231,9 @@ li a:hover
 
 .imageContenairPost
 {
+  /*
    background-image: url('ressources/defaultshow.jpg');
+   */
    background-size: cover;
    height: 300px;
    width: 100%;
@@ -268,7 +293,7 @@ li a:hover
 
 textarea
 {
-    text-align: left;
+    text-align: center;
 }
 
 #home div label 
@@ -279,7 +304,7 @@ textarea
 
 #home_Modifier
 {
-    top: 14px;
+    top: 0px;
 }
 
 #sectionCreateTrick
@@ -402,6 +427,34 @@ textarea
     margin: 10px 0px 10px 10px;
 }
 
+.contenairFormComment
+{
+    height: 150px;
+    width: 100%;
+
+    
+    display: flex;
+    justify-content: space-around;
+    flex-direction: column;
+    
+    margin: 25px 0px 25px 0px;
+
+    background-color: black;
+    opacity: 0.7;
+}
+
+#comment
+{
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+
+#comment_texte
+{
+    left: 0px;
+}
  /* Index / User */
  #enteteUser
 {
@@ -445,11 +498,11 @@ textarea
     flex-direction: column;
 }
 
-#formContenair form input, #user_register div input,  #update_user div input, #home div input, #create_trick div input, #update_trick div input
+#formContenair form input, #user_register div input,  #update_user div input, #home div input, #create_trick div input, #update_trick div input, .contenairFormComment form div div textarea
 {
     width: 280px;
     position: relative;
-    left: 35px;
+    left: 30px;
 
     padding: 10px 10px 10px 10px;
     border-radius: 10px;
@@ -458,7 +511,7 @@ textarea
 
     text-align: center;
 }
-
+/*
 #create_trick_titre, #update_trick_titre
 {
     left: 0px !important;
@@ -474,13 +527,13 @@ textarea
 {
     left: 25px !important;
 }
-
+*/
 #create_trick_texte, #update_trick_texte
 {
     width: 280px;
     height: 100px;
     position: relative;
-    right: 15px;
+    left: 30px;
     
     padding: 10px 10px 10px 10px;
     margin-top: 10px;
@@ -490,12 +543,13 @@ textarea
     
 }
 
+/*
 #create_trick div label, #update_trick div label
 {
     width: 100%;
     text-align: center;
 }
-
+*/
 #home div input
 {
     left: 0px !important;
@@ -524,7 +578,7 @@ textarea
     margin-left: 20px;
 }
 
-#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button, #formContenair form button, #update_user button, #home div button
+#enteteUser form #user_login div button, #enteteUser form #user_register div button, #create_trick div button,  #update_trick div button, #formContenair form button, #update_user button, #home div button, #comment_Envoyer
 {
     position: relative;
     width: auto;
@@ -733,14 +787,17 @@ textarea
 }
 #create_trick div, #update_trick div
 {
-    margin-left: 25px;
+    /*margin-left: 25px;*/
 }
 #create_trick_titre, #create_trick_lienVideo, #create_trick_lienImage, #create_trick_texte, #create_trick_dateCreation, #create_trick_dateMiseAJour, #update_trick_titre, #update_trick_lienVideo, #update_trick_lienImage, #update_trick_texte, #update_trick_dateCreation, #update_trick_dateMiseAJour
 {
     margin-left: 20px;
 }
 
-
+label.required
+{
+    display: none;
+}
 
 
 /*  Account  */
@@ -866,7 +923,7 @@ footer div .fab:hover
 
     background-color: #6495ed;
     opacity: 0.8;
-    padding: 15px 15px 15px 15px;
+    padding: 15px 20px 15px 20px;
     border-radius: 10px;
     border-width: 1px;
 
@@ -881,9 +938,9 @@ footer div .fab:hover
     bottom: 75px;
     color: black;
 
-    background-color: #6495ed;
+    background-color: white;
     opacity: 0.8;
-    padding: 15px 15px 15px 15px;
+    padding: 15px 20px 15px 20px;
     border-radius: 10px;
     border-width: 1px;
 
@@ -905,7 +962,10 @@ footer div .fab:hover
         display: none;
     }
 
-
+    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    {
+    width: 450px;
+    }
   }
 
 @media screen and (min-width: 550px) and (max-width: 720px) {
@@ -933,6 +993,11 @@ footer div .fab:hover
     #navBloc
     {
         width: 100%;
+    }
+
+    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    {
+    width: 450px;
     }
 }
 
@@ -991,6 +1056,11 @@ footer div .fab:hover
     .contenu, .auteur
     {
         padding-left: 10px;
+    }
+
+    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    {
+    width: 370px;
     }
 
     
@@ -1065,5 +1135,10 @@ footer div .fab:hover
     #update_trick_lienVideo, #update_trick_lienImage,  #create_trick_lienVideo, #create_trick_lienImage
     {
         margin-left: 0px;
+    }
+
+    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    {
+    width: 320px;
     }
 }

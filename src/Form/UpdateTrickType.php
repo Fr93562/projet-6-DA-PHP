@@ -26,13 +26,13 @@ class UpdateTrickType extends AbstractType
         $content = ['titre'];
 
         $builder
-            ->add('titre', TextType::class)
-            ->add('lienVideo', TextType::class)
-            ->add('lienImage', TextType::class)
-            ->add('texte', TextareaType::class)
-            ->add('dateCreation', DateType::class)
-            ->add('dateMiseAJour', DateType::class)
-                  ->add('Modifier ce trick', SubmitType::class)
+            ->add('titre', TextType::class, array('attr' => array( 'placeholder' => 'Titre du trick',)))
+            ->add('lienVideo', TextType::class, array('attr' => array('placeholder' => 'Lien vers une vidéo',)))
+            ->add('lienImage', TextType::class, array('attr' => array('placeholder' => 'Lien vers une image',)))
+            ->add('texte', TextareaType::class , array('attr' => array('placeholder' => 'Texte',)))
+            //->add('dateCreation', DateType::class)
+            //->add('dateMiseAJour', DateType::class)
+            ->add('Modifier ce trick', SubmitType::class)
         ;
     }
 

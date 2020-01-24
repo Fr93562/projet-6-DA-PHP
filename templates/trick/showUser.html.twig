@@ -8,10 +8,23 @@
 <section id="show">
   <div id="containerShow">
     <div class="contenairDivShow">
+        <div id="mediaTrick">
+        {% if advert.lienImage != null %}
+          <div id="imgShowTrick"> 
+            <img src="{{ advert.lienImage }}" alt="Photo de montagne" title="C'est beau les Alpes quand même !" />
+          </div>
+        {% endif %}
+
+        {% if advert.lienVideo != null %}
+          <div id="videoShowTrick" >
+            <iframe width="550" height="310" src="{{ advert.lienVideo }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+          </div>
+        {% endif %}
+      </div>
       <div>
           <div class="customDivIcon">
-              <a class="customIcon" href='/show/{{ advert.titre}} '><i class="fas fa-pen"></i></a>
-              <a class="customIcon" href='/delete/{{ advert.titre}} '><i class="fas fa-trash-alt"></i></a>
+              <a class="customIcon" href='/update/{{ advert.slug}} '><i class="fas fa-pen"></i></a>
+              <a class="customIcon" href='/delete/{{ advert.slug}} '><i class="fas fa-trash-alt"></i></a>
           </div>
         <h4 class="titreShow">{{ advert.titre }}</h4>
 
@@ -19,12 +32,30 @@
           {% if advert.dateMiseAJour != null %} et mis à jour le
         {{ advert.dateMiseAJour|date("m/d/Y")}} {% endif %}.</p>
         
-         <p class="texteShow">{{ advert.texte[1:40] }}</p>
+         <p class="texteShow">{{ advert.texte }}</p>
     </div>
     </div>
   </div>
 
-  {{ form(form , { 'action': path("Comment.create", { 'titre' : advert.titre })} ) }}
+  <aside>
+    <div id="listComment">
+
+  	  {% for	comment in listComments %}
+        <div class="contenairComment">
+          <h4 class="commentPseudo">{{ comment.username.username }}</h4>
+          <p class="commentTexte">{{ comment.texte }}</p>
+			  </div>
+        
+		  {% endfor %}
+
+      <div class="contenairFormComment">
+        {{ form(form , { 'action': path("Comment.create")} ) }}
+      </div>
+    </div>
+    
+  </aside>
+  
+
 </section>
 
 {% endblock %}

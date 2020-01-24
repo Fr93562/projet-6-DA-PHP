@@ -22,13 +22,13 @@ class CreateTrickType extends AbstractType
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         $builder
-            ->add('titre', TextType::class)
-            ->add('lienVideo', TextType::class)
-            ->add('lienImage', TextType::class)
-            ->add('texte', TextareaType::class)
-            ->add('dateCreation', DateType::class)
-            ->add('dateMiseAJour', DateType::class)
-                  ->add('Rajouter un trick', SubmitType::class)
+            ->add('titre', TextType::class, array('attr' => array( 'placeholder' => 'Titre du trick', 'label' => false)))
+            ->add('lienVideo', TextType::class, array('attr' => array('placeholder' => 'Lien vers une vidéo',)))
+            ->add('lienImage', TextType::class, array('attr' => array('placeholder' => 'Lien vers une image',)))
+            ->add('texte', TextareaType::class , array('attr' => array('placeholder' => 'Texte',)))
+            //->add('dateCreation', DateType::class)
+            //->add('dateMiseAJour', DateType::class)
+            ->add('Rajouter un trick', SubmitType::class)
         ;
     }
 

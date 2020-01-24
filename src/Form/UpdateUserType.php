@@ -24,7 +24,7 @@ class UpdateUserType extends AbstractType
         $builder
             ->add('username', TextType::class)
             ->add('mail', TextType::class)
-                  ->add('Créer mon compte', SubmitType::class)
+            ->add('Creer mon compte', SubmitType::class)
         ;
     }
 

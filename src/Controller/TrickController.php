@@ -14,6 +14,7 @@ use App\Form\HomeType;
 use App\Form\CreateTrickType;
 use App\Form\UpdateTrickType;
 use App\Form\CommentType;
+use Service\Tools\Slugger;
 
 /**
  * Gère les paths de l'entité Trick
@@ -30,9 +31,16 @@ class TrickController extends AbstractController
     {
         $repositoryHome = $this->getDoctrine()->getRepository(Home::class);
         $repository = $this->getDoctrine()->getRepository(Trick::class);
+
+        $listAdverts = $repository->findAll();
+
+        foreach ($listAdverts as $advert){
+        
+          $advert->setSlug($advert->getTitre());
+      }
       
         $output = $this->render('trick/index.html.twig', [
-              'listAdverts'=> $listAdverts = $repository->findAll(),
+              'listAdverts'=> $listAdverts,
         'home'=> $homeAdverts = $repositoryHome->find(1),
       ]);
 
@@ -58,6 +66,12 @@ class TrickController extends AbstractController
           $repositoryHome->find(1)
       );
 
+      $listAdverts = $repository->findAll();
+
+      foreach ($listAdverts as $advert){
+        $advert->setSlug($advert->getTitre());
+    }
+
         // Si un formulaire est envoyé en méthode POST
         if ($request -> isMethod('POST')) {
             $form-> handleRequest($request);
@@ -77,7 +91,7 @@ class TrickController extends AbstractController
         return $this->render('trick/indexUser.html.twig', [
         'form' => $form->createview(),
         'home'=> $homeAdverts = $repositoryHome->find(1),
-        'listAdverts'=> $listAdverts = $repository->findAll(),
+        'listAdverts'=> $listAdverts,
       ]);
     }
 
@@ -96,14 +110,16 @@ class TrickController extends AbstractController
             $form-> handleRequest($request);
 
             if ($form->isSubmitted() &&  $form->isValid()) {
-                $trick = new Trick();
+                
+              $trick = new Trick();
                 $trick = $form -> getData();
+                $trick->setDateCreation(new \DateTime());
 
                 $em = $this->getDoctrine()->getManager();
                 $em->persist($trick);
                 $em->flush();
 
-                return self::showUser($form['titre']-> getData());
+                return self::showUser($form['titre']-> getData(), $request);
             }
         } else {
             return $this->render('trick/showUserCreate.html.twig', [
@@ -122,8 +138,11 @@ class TrickController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Trick::class);
         $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
 
+        $listAdvert = $repository->findOneByTitre(Slugger::noSlugify($titre));
+        $listAdvert->setSlug($listAdvert->getTitre());
+
         return $this->render('trick/show.html.twig', [
-            'advert'=> $listAdvert = $repository->findOneByTitre($titre),
+            'advert'=> $listAdvert,
             'listComments'=> $listComments = $repositoryComments->findAll(),
         ]);
     }
@@ -138,13 +157,16 @@ class TrickController extends AbstractController
     {
         $repository = $this->getDoctrine()->getRepository(Trick::class);
         $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
+
+        $listAdvert = $repository->findOneByTitre(Slugger::noSlugify($titre));
+        $listAdvert->setSlug($listAdvert->getTitre());
       
         $form = $this->createForm(CommentType::class, [
           'action' => $this->generateUrl('Comment.create'),
           ]);
       
         return $this->render('trick/showUser.html.twig', [
-        'advert'=> $listAdvert = $repository->findOneByTitre($titre),
+        'advert'=> $listAdvert,
         'form' => $form->createview(),
         'listComments'=> $listComments = $repositoryComments->findAll(),
       ]);
@@ -162,7 +184,7 @@ class TrickController extends AbstractController
 
         $form = $this->createForm(
         UpdateTrickType::class,
-        $repository->findOneByTitre($titre)
+        $repository->findOneByTitre(Slugger::noSlugify($titre))
     );
 
         // Si un formulaire est envoyé en méthode POST
@@ -173,7 +195,11 @@ class TrickController extends AbstractController
                 $repositoryUpdate = $this->getDoctrine()->getRepository(Trick::class);
 
                 $trick = $repositoryUpdate->findOneByTitre($titre);
+                $createDate = $trick->getDateCreation();
                 $trick = $form -> getData();
+                //$trick->setDateMiseAJour(date("Y-m-d H:i:s"));
+                $trick->setDateMiseAJour(new \DateTime());
+                $trick->setDateMiseAJour($createDate);
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
@@ -199,7 +225,7 @@ class TrickController extends AbstractController
         $repository = $this->getDoctrine()->getRepository(Trick::class);
         $repositorySupress = $this->getDoctrine()->getRepository(Trick::class);
 
-        $trick = $repositorySupress->findOneByTitre($titre);
+        $trick = $repositorySupress->findOneByTitre(Slugger::noSlugify($titre));
 
         $em = $this->getDoctrine()->getManager();
         $em->remove($trick);

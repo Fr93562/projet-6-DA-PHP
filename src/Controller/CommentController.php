@@ -19,7 +19,7 @@ class CommentController extends AbstractController
 {
 
 /**
-  * @Route("/show//post", name="Comment.create")
+  * @Route("/post/", name="Comment.create")
   * @IsGranted("IS_AUTHENTICATED_FULLY")
 
   * Crée un nouveau commentaire
@@ -27,7 +27,6 @@ class CommentController extends AbstractController
     public function create(Request $request, AuthenticationUtils $authenticationUtils)
     {
         $request = Request::createFromGlobals();
-        $titre = $request->query->get('titre');
         $form = $this->createForm(CommentType::class);
 
         if ($request -> isMethod('POST')) {
@@ -49,6 +48,6 @@ class CommentController extends AbstractController
                 $em->flush();
             }
         }
-        return $this->redirectToRoute('trick.showUser');
+        return $this->redirectToRoute('trick.indexUser');
     }
 }
