@@ -175,17 +175,17 @@ li a:hover
 }
 
 
-#imgShowTrick
+.imgShowTrick
 {
     width: 550px;
 }
-#imgShowTrick img
+.imgShowTrick img
 {
     width: 550px;
 }
 
 
-#videoShowTrick
+.videoShowTrick
 {
     width: 550px;
 }
@@ -354,6 +354,14 @@ textarea
 	justify-content: space-around;
 }
 
+#voirPlus
+{
+    text-decoration: none !important;
+
+    position: relative;
+    right: 40px;
+}
+
 #show
 {
   display: flex;
@@ -407,6 +415,7 @@ textarea
     display: flex;
     justify-content: center;
     flex-direction: column;
+    flex-wrap: wrap;
 
     margin: 25px 0px 25px 0px;
 
@@ -455,6 +464,31 @@ textarea
 {
     left: 0px;
 }
+
+.siema
+{
+    width: 550px;
+    height: 310px;
+}
+#mediaTrick
+{
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-around;
+}
+.imageAvatar
+{
+    background-size: cover;
+    height: 80px;
+    width: 80px;
+
+   /* position: relative;
+    left: 330px;
+    top: 40px;
+*/
+}
+
+
  /* Index / User */
  #enteteUser
 {
@@ -511,23 +545,7 @@ textarea
 
     text-align: center;
 }
-/*
-#create_trick_titre, #update_trick_titre
-{
-    left: 0px !important;
-    margin-left: 10px !important;
-}
 
-#create_trick_lienVideo, #update_trick_lienVideo
-{
-    left: 25px !important;
-}
-
-#create_trick_lienImage, #cupdate_trick_lienImage
-{
-    left: 25px !important;
-}
-*/
 #create_trick_texte, #update_trick_texte
 {
     width: 280px;
@@ -543,13 +561,6 @@ textarea
     
 }
 
-/*
-#create_trick div label, #update_trick div label
-{
-    width: 100%;
-    text-align: center;
-}
-*/
 #home div input
 {
     left: 0px !important;
@@ -721,7 +732,10 @@ textarea
   transition-duration: 250ms;
 }
 
-
+#voirPlus
+{
+    text-align: center;
+}
 
 /* User create */
 #enteteCreateUser
@@ -784,10 +798,6 @@ textarea
     display: flex;
     justify-content: space-around;
     flex-direction: column;
-}
-#create_trick div, #update_trick div
-{
-    /*margin-left: 25px;*/
 }
 #create_trick_titre, #create_trick_lienVideo, #create_trick_lienImage, #create_trick_texte, #create_trick_dateCreation, #create_trick_dateMiseAJour, #update_trick_titre, #update_trick_lienVideo, #update_trick_lienImage, #update_trick_texte, #update_trick_dateCreation, #update_trick_dateMiseAJour
 {
@@ -863,17 +873,6 @@ label.required
 	height: 100%;
 }
 
-/*
-#user_login
-{
-	display:flex;
-    flex-direction: column;
-    justify-content: space-around;
-
-	height: 100%;
-
-}
-*/
 
 #forgotPassword
 {
@@ -947,6 +946,11 @@ footer div .fab:hover
     margin-bottom: 10px;
 }
 
+/* Voir plus de média */
+#voirMedia
+{
+    display: none;
+}
 
 /* Mediaqueries */
 
@@ -962,7 +966,7 @@ footer div .fab:hover
         display: none;
     }
 
-    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    .imgShowTrick, .imgShowTrick img, .videoShowTrick, .videoShowTrick iframe, .siema
     {
     width: 450px;
     }
@@ -995,7 +999,7 @@ footer div .fab:hover
         width: 100%;
     }
 
-    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    .imgShowTrick, .imgShowTrick img, .videoShowTrick, .videoShowTrick iframe, .siema
     {
     width: 450px;
     }
@@ -1058,12 +1062,11 @@ footer div .fab:hover
         padding-left: 10px;
     }
 
-    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    .imgShowTrick, .imgShowTrick img, .videoShowTrick, .videoShowTrick iframe, .siema
     {
     width: 370px;
     }
 
-    
 }
 
 @media screen and (max-width: 379px) {
@@ -1137,8 +1140,12 @@ footer div .fab:hover
         margin-left: 0px;
     }
 
-    #imgShowTrick, #imgShowTrick img, #videoShowTrick, #videoShowTrick iframe
+    .imgShowTrick, .imgShowTrick img, .videoShowTrick, .videoShowTrick iframe, .siema
     {
     width: 320px;
+    }
+    .imageAvatar
+    {
+        display: none;
     }
 }

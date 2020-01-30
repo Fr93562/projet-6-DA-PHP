@@ -9,18 +9,32 @@
   <div id="containerShow">
     <div class="contenairDivShow">
         <div id="mediaTrick">
-        {% if advert.lienImage != null %}
-          <div id="imgShowTrick"> 
-            <img src="{{ advert.lienImage }}" alt="Photo de montagne" title="C'est beau les Alpes quand même !" />
-          </div>
-        {% endif %}
 
-        {% if advert.lienVideo != null %}
-          <div id="videoShowTrick" >
-            <iframe width="550" height="310" src="{{ advert.lienVideo }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
+        <div class="siema">
+        {% if advert.lienImage != null %}
+
+          	  {% for	image in advert.lienImage %}
+                <div class="imgShowTrick"> 
+                  <img src="{{ image }}" alt="Photo de montagne" title="C'est beau les Alpes quand même !" />
+                </div>
+		          {% endfor %}
+
         {% endif %}
+        </div>
+
+        <div class="siema">
+        {% if advert.lienVideos != null %}
+
+          	  {% for	video in advert.lienVideo %}
+              <div class="videoShowTrick" >
+                <iframe width="550" height="310" src="{{ video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+		          {% endfor %}
+
+        {% endif %}
+        </div>
       </div>
+
       <div>
           <div class="customDivIcon">
               <a class="customIcon" href='/update/{{ advert.slug}} '><i class="fas fa-pen"></i></a>
@@ -42,6 +56,7 @@
 
   	  {% for	comment in listComments %}
         <div class="contenairComment">
+          <div class="imageContenairPost" style="background-image: url('{{ comment.username.lienImage }}');"></div>
           <h4 class="commentPseudo">{{ comment.username.username }}</h4>
           <p class="commentTexte">{{ comment.texte }}</p>
 			  </div>

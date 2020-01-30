@@ -22,6 +22,9 @@ class Comment
      */
     private $username;
 
+
+    private $lienImage;
+
     /**
      * @ORM\Column(type="text")
      */
@@ -40,6 +43,19 @@ class Comment
     public function setUsername(?User $username): self
     {
         $this->username = $username;
+
+        return $this;
+    }
+
+    public function getLienImage(): ?User
+    {
+        return $this->lienImage;
+    }
+
+    
+    public function setLienImage(?User $lienImage): self
+    {
+        $this->lienImage = $lienImage;
 
         return $this;
     }

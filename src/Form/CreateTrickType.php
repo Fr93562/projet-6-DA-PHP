@@ -23,8 +23,8 @@ class CreateTrickType extends AbstractType
     {
         $builder
             ->add('titre', TextType::class, array('attr' => array( 'placeholder' => 'Titre du trick', 'label' => false)))
-            ->add('lienVideo', TextType::class, array('attr' => array('placeholder' => 'Lien vers une vidéo',)))
-            ->add('lienImage', TextType::class, array('attr' => array('placeholder' => 'Lien vers une image',)))
+            ->add('lienVideo', TextareaType::class, array('attr' => array('placeholder' => 'Liens vers des vidéos, séparez les liens par une virgule',)))
+            ->add('lienImage', TextareaType::class, array('attr' => array('placeholder' => 'Lien vers une image, séparez les liens par une virgule',)))
             ->add('texte', TextareaType::class , array('attr' => array('placeholder' => 'Texte',)))
             //->add('dateCreation', DateType::class)
             //->add('dateMiseAJour', DateType::class)

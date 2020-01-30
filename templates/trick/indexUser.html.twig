@@ -21,7 +21,7 @@
 	<div id="containerArticle">
 		{% for	advert in listAdverts %}
         	<div class="contenairDiv">
-            	<div class="imageContenairPost">
+            	<div class="imageContenairPost" style="background-image: url('{{ advert.lienImage[0] }}');">
                 <div class="customDivIcon">
                     <a class="customIcon" href='/update/{{ advert.slug}} '><i class="fas fa-pen"></i></a>
                     <a class="customIcon" href='/delete/{{ advert.slug}} '><i class="fas fa-trash-alt"></i></a>
@@ -29,7 +29,7 @@
               </div>
 				<article class="contenairPost">
                 	<h4 class="titre">{{ advert.titre }}</h4>
-                	<p class="contenu">{{ advert.texte[1:40] }}</p>
+                	<p class="contenu">{{ advert.texte[0:40] }}</p>
                 	<p class="auteur"> {{ advert.dateCreation|date("m/d/Y")}} </p>
                 	<p class="lien"><a class="customLien" href='/show/{{ advert.slug}}'>Lire la suite</a></p>
 				</article>
@@ -41,5 +41,10 @@
 {% if listAdverts|length > 8 %}
  	<a href="#navTitre"><i id="flecheHaute" class="fas fa-chevron-up"></i> </a>
 {% endif %}
+
+{% if listAdverts|length <= number %}
+	<a class="customLien" id="voirPlus" href="/?trick={{ listTrick}}"> Voir plus </a>
+{% endif %}
+
 
 {% endblock %}

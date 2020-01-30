@@ -24,7 +24,7 @@ class UserController extends AbstractController
    * Affiche la page d'accueil de l'User s'il est identifié. Sinon, affiche la page de connexion
    */
     public function index()
-    {
+    { 
         $output = $this->redirectToRoute('app_login');
 
         if ($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {

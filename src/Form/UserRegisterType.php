@@ -23,7 +23,7 @@ class UserRegisterType extends AbstractType
                 ->add('username', TextType::class, array('attr' => array('placeholder' => 'votre pseudo',)))
                 ->add('mail', TextType::class, array('attr' => array('placeholder' => 'votre mail',)))
                       ->add('password', TextType::class, array('attr' => array('placeholder' => 'votre mot de mot de passe',)))
-                      ->add('Créer mon compte', SubmitType::class)
+                      ->add('Creer mon compte', SubmitType::class)
         ;
     }
 

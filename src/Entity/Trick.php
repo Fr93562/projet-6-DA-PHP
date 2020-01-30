@@ -25,14 +25,18 @@ class Trick
     private $slug;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="json")
      */
-    private $lienVideo;
+    private $lienVideo= [];
+
+    private $lienVideos;
 
     /**
-     * @ORM\Column(type="string", length=255, nullable=true)
+     * @ORM\Column(type="json")
      */
-    private $lienImage;
+    private $lienImage= [];
+
+    private $lienImages = null;
 
     /**
      * @ORM\Column(type="text")
@@ -78,26 +82,50 @@ class Trick
         return $this;
     }
 
-    public function getLienVideo(): ?string
+    public function getLienVideo(): ?array
     {
         return $this->lienVideo;
     }
 
-    public function setLienVideo(?string $lienVideo): self
+    public function setLienVideo(?array $lienVideo): self
     {
         $this->lienVideo = $lienVideo;
 
         return $this;
     }
 
-    public function getLienImage(): ?string
+    public function getLienVideos(): ?string
+    {
+        return $this->lienVideos;
+    }
+
+    public function setLienVideos(?string $lienVideos): self
+    {
+        $this->lienVideos = $lienVideos;
+
+        return $this;
+    }
+
+    public function getLienImage(): ?array
     {
         return $this->lienImage;
     }
 
-    public function setLienImage(?string $lienImage): self
+    public function setLienImage(?array $lienImage): self
     {
         $this->lienImage = $lienImage;
+
+        return $this;
+    }
+
+    public function getLienImages(): ?string
+    {
+        return $this->lienImages;
+    }
+
+    public function setLienImages(?string $lienImages): self
+    {
+        $this->lienImages = $lienImages;
 
         return $this;
     }

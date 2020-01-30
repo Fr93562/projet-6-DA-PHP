@@ -27,21 +27,34 @@ class TrickController extends AbstractController
      *
    * Affiche la page d'accueil du site
    */
-    public function index()
+    public function index(Request $request)
     {
         $repositoryHome = $this->getDoctrine()->getRepository(Home::class);
         $repository = $this->getDoctrine()->getRepository(Trick::class);
+        $trickRequest = $request->query->get('trick');
+        $trickTotalNumber = count($repository->findAll());
 
-        $listAdverts = $repository->findAll();
+        if ($trickRequest == null) {
 
-        foreach ($listAdverts as $advert){
+          $trickRender = 1;
+        } else {
+
+          $trickRender = $trickRequest + 1;
+          $trickRequest = ($trickRequest + 1 ) * 10;
+        }
+
+        $listTricks = $repository->findBy(array(), null, $trickRequest, null);
+
+        foreach ($listTricks as $advert){
         
           $advert->setSlug($advert->getTitre());
-      }
-      
+        }
+    
         $output = $this->render('trick/index.html.twig', [
-              'listAdverts'=> $listAdverts,
-        'home'=> $homeAdverts = $repositoryHome->find(1),
+              'listAdverts'=> $listTricks,
+              'home'=> $homeAdverts = $repositoryHome->find(1),
+              'listTrick'=> $trickRender,
+              'number'=>$trickTotalNumber,
       ]);
 
         if ($this->container->get('security.authorization_checker')->isGranted('IS_AUTHENTICATED_FULLY')) {
@@ -51,7 +64,7 @@ class TrickController extends AbstractController
     }
 
     /**
-       * @Route("/homeUser", name="trick.indexUser")
+     * @Route("/homeUser", name="trick.indexUser")
      * @IsGranted("IS_AUTHENTICATED_FULLY")
      *
      * Affiche la page d'accueil du site pour un user connecté
@@ -60,17 +73,29 @@ class TrickController extends AbstractController
     {
         $repositoryHome = $this->getDoctrine()->getRepository(Home::class);
         $repository = $this->getDoctrine()->getRepository(Trick::class);
+        $trickRequest = $request->query->get('trick');
+        $trickTotalNumber = count($repository->findAll());
+
+        if ($trickRequest == null) {
+
+          $trickRender = 1;
+        } else {
+
+          $trickRender = $trickRequest + 1;
+          $trickRequest = ($trickRequest + 1 ) * 10;
+        }
+
+        $listTricks = $repository->findBy(array(), null, $trickRequest, null);
+
+        foreach ($listTricks as $advert){
+        
+          $advert->setSlug($advert->getTitre());
+        }
 
         $form = $this->createForm(
           HomeType::class,
           $repositoryHome->find(1)
       );
-
-      $listAdverts = $repository->findAll();
-
-      foreach ($listAdverts as $advert){
-        $advert->setSlug($advert->getTitre());
-    }
 
         // Si un formulaire est envoyé en méthode POST
         if ($request -> isMethod('POST')) {
@@ -91,7 +116,9 @@ class TrickController extends AbstractController
         return $this->render('trick/indexUser.html.twig', [
         'form' => $form->createview(),
         'home'=> $homeAdverts = $repositoryHome->find(1),
-        'listAdverts'=> $listAdverts,
+        'listAdverts'=> $listTricks,
+        'listTrick'=> $trickRender,
+        'number'=>$trickTotalNumber,
       ]);
     }
 
@@ -111,7 +138,9 @@ class TrickController extends AbstractController
 
             if ($form->isSubmitted() &&  $form->isValid()) {
                 
-              $trick = new Trick();
+                $trick = new Trick();
+                //$listImage = explode(',', "dataList" );
+                //$listVideo = explode(',', "dataList" );
                 $trick = $form -> getData();
                 $trick->setDateCreation(new \DateTime());
 
@@ -133,17 +162,35 @@ class TrickController extends AbstractController
      *
      * Affiche un trick en particulier et l'espace de discussion général
      */
-    public function show(String $titre)
+    public function show(String $titre, Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Trick::class);
         $repositoryComments = $this->getDoctrine()->getRepository(Comment::class);
+        $commentRequest = $request->query->get('comment');
+        $trickTotalNumber = count($repositoryComments->findAll());
+
+        if ($commentRequest == null) {
+
+          $commentRender = 1;
+          $commentRequest = 5;
+        } else {
+
+          $commentRender = $commentRequest + 1;
+          $commentRequest = ($commentRequest + 1 ) * 5;
+        }
+        $listComments = $repositoryComments->findBy(array(), null, $commentRequest, null);
+
 
         $listAdvert = $repository->findOneByTitre(Slugger::noSlugify($titre));
         $listAdvert->setSlug($listAdvert->getTitre());
+        $listAdvert->setLienImages(implode( ',', $listAdvert->getLienImage()));
+        $listAdvert->setLienVideos(implode( ',', $listAdvert->getLienVideo()));
 
         return $this->render('trick/show.html.twig', [
             'advert'=> $listAdvert,
-            'listComments'=> $listComments = $repositoryComments->findAll(),
+            'listComments'=> $listComments,
+            'number'=> $commentRender,
+            'totalComment' => $trickTotalNumber,
         ]);
     }
 
@@ -160,6 +207,21 @@ class TrickController extends AbstractController
 
         $listAdvert = $repository->findOneByTitre(Slugger::noSlugify($titre));
         $listAdvert->setSlug($listAdvert->getTitre());
+        $listAdvert->setLienImages(implode( ',', $listAdvert->getLienImage()));
+        $listAdvert->setLienVideos(implode( ',', $listAdvert->getLienVideo()));
+        $commentRequest = $request->query->get('comment');
+        $trickTotalNumber = count($repositoryComments->findAll());
+
+        if ($commentRequest == null) {
+
+          $commentRender = 1;
+          $commentRequest = 5;
+        } else {
+
+          $commentRender = $commentRequest + 1;
+          $commentRequest = ($commentRequest + 1 ) * 5;
+        }
+        $listComments = $repositoryComments->findBy(array(), null, $commentRequest, null);
       
         $form = $this->createForm(CommentType::class, [
           'action' => $this->generateUrl('Comment.create'),
@@ -169,6 +231,8 @@ class TrickController extends AbstractController
         'advert'=> $listAdvert,
         'form' => $form->createview(),
         'listComments'=> $listComments = $repositoryComments->findAll(),
+        'number'=> $commentRender,
+        'totalComment' => $trickTotalNumber,
       ]);
     }
 
@@ -181,11 +245,13 @@ class TrickController extends AbstractController
     public function update(String $titre, Request $request)
     {
         $repository = $this->getDoctrine()->getRepository(Trick::class);
+        $trickFound = $repository->findOneByTitre(Slugger::noSlugify($titre));
 
-        $form = $this->createForm(
-        UpdateTrickType::class,
-        $repository->findOneByTitre(Slugger::noSlugify($titre))
-    );
+        implode( ',', $trickFound->getLienImage());
+        $trickFound->setLienImages(implode( ',', $trickFound->getLienImage()));
+        $trickFound->setLienVideos(implode( ',', $trickFound->getLienVideo()));
+
+        $form = $this->createForm( UpdateTrickType::class, $trickFound);
 
         // Si un formulaire est envoyé en méthode POST
         if ($request -> isMethod('POST')) {
@@ -194,12 +260,13 @@ class TrickController extends AbstractController
             if ($form->isSubmitted() &&  $form->isValid()) {
                 $repositoryUpdate = $this->getDoctrine()->getRepository(Trick::class);
 
-                $trick = $repositoryUpdate->findOneByTitre($titre);
-                $createDate = $trick->getDateCreation();
+                $trick = $repositoryUpdate->findOneByTitre(Slugger::noSlugify($titre));
+                var_dump($form -> getData()->getTitre());
+
                 $trick = $form -> getData();
-                //$trick->setDateMiseAJour(date("Y-m-d H:i:s"));
                 $trick->setDateMiseAJour(new \DateTime());
-                $trick->setDateMiseAJour($createDate);
+                $trick->setLienImage(explode(',', $trick->getLienImages()));
+                $trick->setLienVideo(explode(',', $trick->getLienVideos()));
 
                 $em = $this->getDoctrine()->getManager();
                 $em->flush();
@@ -231,6 +298,7 @@ class TrickController extends AbstractController
         $em->remove($trick);
         $em->flush();
 
-        self::indexUser(Request);
+        //self::index();
+        return $this->redirectToRoute('trick.index');
     }
 }

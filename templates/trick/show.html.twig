@@ -5,20 +5,36 @@
 <section>
     <div id="enteteShowTrick"></div>
 </section>
+
 <section id="show">
   <div id="containerShow">
-        <div id="mediaTrick">
-        {% if advert.lienImage != null %}
-          <div id="imgShowTrick"> 
-            <img src="{{ advert.lienImage }}" alt="Photo de montagne" title="C'est beau les Alpes quand même !" />
-          </div>
-        {% endif %}
 
-        {% if advert.lienVideo != null %}
-          <div id="videoShowTrick" >
-            <iframe width="550" height="310" src="{{ advert.lienVideo }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
-          </div>
+        <div id="mediaTrick">
+
+        <div class="siema">
+        {% if advert.lienImage != null %}
+
+          	  {% for	image in advert.lienImage %}
+                <div class="imgShowTrick"> 
+                  <img src="{{ image }}" alt="Photo de montagne" title="C'est beau les Alpes quand même !" />
+                </div>
+		          {% endfor %}
+
         {% endif %}
+        </div>
+
+        <div class="siema">
+        {% if advert.lienVideos != null %}
+
+          	  {% for	video in advert.lienVideo %}
+              <div class="videoShowTrick" >
+                <iframe width="550" height="310" src="{{ video }}" frameborder="0" allow="accelerometer; autoplay; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+              </div>
+		          {% endfor %}
+
+        {% endif %}
+        </div>
+
       </div>
     <div class="contenairDivShow">
       <div>
@@ -28,7 +44,7 @@
           {% if advert.dateMiseAJour != null %} et mis à jour le
         {{ advert.dateMiseAJour|date("m/d/Y")}} {% endif %}.</p>
 
-        <p class="texteShow">{{ advert.texte[1:40] }}</p>
+        <p class="texteShow">{{ advert.texte }}</p>
     </div>
     </div>
   </div>
@@ -37,6 +53,7 @@
 
   	  {% for	comment in listComments %}
         <div class="contenairComment">
+          <div class="imageAvatar" style="background-image: url('{{ comment.username.lienImage }}');"></div>
           <h4 class="commentPseudo">{{ comment.username.username }}</h4>
           <p class="commentTexte">{{ comment.texte }}</p>
 			  </div>
@@ -44,6 +61,9 @@
 		  {% endfor %}
     </div>
   </aside>
+
+	  <a class="customLien" id="voirPlus" href="?comment={{ number}}"> Voir plus de commentaires  </a>
+
 </section>
 
 {% endblock %}

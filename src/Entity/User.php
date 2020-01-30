@@ -39,6 +39,12 @@ class User implements UserInterface
     private $mail;
 
     /**
+     * @ORM\Column(type="string", length=255, nullable=true)
+     */
+    private $lienImage;
+
+
+    /**
      * @ORM\OneToMany(targetEntity="App\Entity\Comment", mappedBy="username", orphanRemoval=true)
      */
 
@@ -125,6 +131,18 @@ class User implements UserInterface
     public function setMail(string $mail): self
     {
         $this->mail = $mail;
+
+        return $this;
+    }
+
+    public function getLienImage(): ?string
+    {
+        return $this->lienImage;
+    }
+
+    public function setLienImage(?string $lienImage): self
+    {
+        $this->lienImage = $lienImage;
 
         return $this;
     }
